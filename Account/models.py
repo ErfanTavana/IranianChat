@@ -1,15 +1,25 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='کاربر')
+    first_name = models.CharField(max_length=50, blank=True, verbose_name='نام')
+    last_name = models.CharField(max_length=50, blank=True, verbose_name='نام خانوادگی')
+    phone_number = models.CharField(max_length=15, blank=True, verbose_name='شماره تماس')
+
     bio = models.TextField(max_length=500, blank=True, verbose_name='بیوگرافی')
-    location = models.CharField(max_length=30, blank=True, verbose_name='مکان')
     birth_date = models.DateField(null=True, blank=True, verbose_name='تاریخ تولد')
-    profile_picture = models.ImageField(upload_to=f'profile_pics/{user.username}_{user.id}', null=True, blank=True,
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True,
                                         verbose_name='عکس پروفایل')
     responsibility = models.CharField(max_length=100, blank=True, verbose_name='مسئولیت')
+
+    def save(self, *args, **kwargs):
+        self.user.first_name = self.first_name.strip()
+        self.user.last_name = self.last_name.strip()
+        self.user.save()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.user.username
