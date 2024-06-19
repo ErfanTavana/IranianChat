@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <title>چیت چت - قالب html پیام رسان - المنت ها</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Chitchat">
+  <meta name="keywords" content="Chitchat">
+  <meta name="author" content="Chitchat">
+  <link rel="icon" href="assets/images/favicon/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/favicon/favicon.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/date-picker.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="screen" id="color">
+  <link rel="stylesheet" type="text/css" href="assets/css/tour.css">
+  <link rel="stylesheet" type="text/css" href="assets/js/ckeditor/skins/moono-lisa/editor.css?t=HBDD">
+  <link rel="stylesheet" type="text/css" href="assets/js/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css">
+  <link rel="stylesheet" type="text/css" href="assets/js/ckeditor/plugins/scayt/dialogs/dialog.css">
+  <link rel="stylesheet" type="text/css" href="assets/js/ckeditor/plugins/tableselection/styles/tableselection.css">
+  <link rel="stylesheet" type="text/css" href="assets/js/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css">
+  <link rel="stylesheet" type="text/css" href="assets/js/ckeditor/plugins/copyformatting/styles/copyformatting.css">
+  <link rel="stylesheet" href="assets/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Farsi fonts stylesheet ; for more information ; https://rastikerdar.github.io/vazirmatn/ -->
+  <link rel="stylesheet" href="assets/fonts/vazir/Farsi-Digits/Vazirmatn-FD-font-face.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <style>
+    .chat-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    .rtl .chat-main li .chat-box .details {
+      padding-left: 60px;
+    }
+
+    .rtl .chat-main li .chat-box .date-status {
+      left: unset;
+      right: 0;
+      text-align: right;
+    }
+
+    .quarterCircle {
+      border-radius: 0 0 90px 0px;
+      left: 0;
+      right: unset;
+      top: 0;
+    }
+
+    .quarterCircle .close-btn span {
+      left: 20px;
+      right: unset;
+    }
+    .rtl .videocall.call-modal .videocall-details .usersprof, .rtl .videocallhang.call-modal .videocall-details .usersprof {
+    margin-left: 24px;
+    margin-right: unset;
+}
+#basicUsage1{
+  margin-left:16px;
+}
+.modal-footer.clfooter{
+  display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+  </style>
+</head>
+
+<body class="rtl">
+  <div class="inner-page">
+    <!-- header start //-->
+    <header id="home">
+      <div class="custom-container">
+        <div class="row">
+          <div class="col-12">
+            <div class="landing-header">
+              <div class="main-menu">
+                <nav class="navbar navbar-expand-sm navbar-light"><a class="navbar-brand" href="messenger.html">
+                    <div class="logo-block"><img class="img-fluid" src="assets/images/logo/landing-logo.png"
+                        alt="logo" /></div>
+                  </a>
+                  <button class="navbar-toggler d-xl-none" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation"><span
+                      class="navbar-toggler-icon"></span></button>
+                  <div class="collapse navbar-collapse d-xl-block" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item active"><a class="nav-link" href="messenger.html">پیام رسان <span
+                            class="sr-only">(current)</span></a></li>
+                      <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">بلاگ</a>
+                        <ul class="dropdown-menu">
+                          <li class="nav-link"><a href="blog-page(right-sidebar).html">بلاگ - سایدبار سمت راست</a></li>
+                          <li class="nav-link"><a href="blog-page(left-sidebar).html">بلاگ - سایدبار سمت چپ</a></li>
+                          <li class="nav-link"><a href="blog-page(blog-details).html">جزئیات بلاگ</a></li>
+                          <li class="nav-link"><a href="blog-page(no-sidebar).html">بلاگ بدون سایدبار</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">قالبهای ایمیل</a>
+                        <ul class="dropdown-menu">
+                          <li class="nav-link"><a href="email.html">1 - پایه</a></li>
+                          <li class="nav-link"><a href="email-two.html">2 - بازنشانی رمز ورود</a></li>
+                          <li class="nav-link"><a href="email-three.html">3 - بازنشانی رمز ورود </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">احراز هویت</a>
+                        <ul class="dropdown-menu">
+                          <li class="nav-link"><a href="login.html">ورود 1</a></li>
+                          <li class="nav-link"><a href="signup.html">ثبت نام 1</a></li>
+                          <li class="nav-link"><a href="login-2.html">ورود کلاسیک(2)</a></li>
+                          <li class="nav-link"><a href="signup-2.html">ثبت نام کلاسیک(2)</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">صفحات هدیه</a>
+                        <ul class="dropdown-menu">
+                          <li class="nav-link"><a href="about.html">درباره</a></li>
+                          <li class="nav-link"><a href="faq.html">سوالات متداول</a></li>
+                          <li class="nav-link"><a href="elements.html">المنت ها</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="breadcrumb-main">
+      <div class="custom-container">
+        <ul>
+          <li> <a href="messenger.html">پیام رسان</a></li>
+          <li> <a href="#">المنت ها</a></li>
+        </ul>
+        <h2>المنت ها</h2>
+      </div>
+    </section>
+  </div>
+  <ul class="page-decore">
+    <li class="top"><img class="img-fluid inner2" src="assets/images/landing/footer/2.png" alt="footer-back-img"></li>
+    <li class="bottom"><img class="img-fluid inner2" src="assets/images/landing/footer/2.png" alt="footer-back-img">
+    </li>
+  </ul>
+  <div class="container">
+    <section class="header-typography">
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>سرتیترهای H1 تا H6</h2>
+            </div>
+            <div class="element-card-body typography">
+              <h1>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h1>
+              <h2>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h2>
+              <h3>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h3>
+              <h4>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h4>
+              <h5>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h5>
+              <h6>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="element-span-prag">
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>Span و پاراگراف</h2>
+            </div>
+            <div class="element-card-body typography"><span class="small_prag">لورم ایپسوم متن ساختگی با تولید سادگی
+                نامفهوم</span>
+              <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>تصاویر و آواتار</h2>
+            </div>
+            <div class="element-card-body typography"><img class="img-10 img-fluid" src="assets/images/avtar/1.jpg"
+                alt="Avatar"><img class="img-20 img-fluid" src="assets/images/avtar/1.jpg" alt="Avatar"><img
+                class="img-30 img-fluid" src="assets/images/avtar/1.jpg" alt="Avatar"><img class="img-40 img-fluid"
+                src="assets/images/avtar/1.jpg" alt="Avatar"><img class="img-50 img-fluid"
+                src="assets/images/avtar/1.jpg" alt="Avatar"><img class="img-60 img-fluid"
+                src="assets/images/avtar/1.jpg" alt="Avatar"><img class="img-70 img-fluid"
+                src="assets/images/avtar/1.jpg" alt="Avatar"><img class="img-80 img-fluid"
+                src="assets/images/avtar/1.jpg" alt="Avatar"><img class="img-90 img-fluid"
+                src="assets/images/avtar/1.jpg" alt="Avatar"><img class="img-100 img-fluid"
+                src="assets/images/avtar/1.jpg" alt="Avatar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="element-span-prag">
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>فونت ها</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="font-primary fonts">فونت-اصلی</div>
+              <div class="font-success fonts">فونت-موفق</div>
+              <div class="font-danger fonts">فونت-خطرناک</div>
+              <div class="font-light fonts">فونت-روشن</div>
+              <div class="font-warning fonts">فونت -اخطار </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>فونت لیبل ها</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-primary fonts font_label"> لیبل-اصلی</div>
+              <div class="badge badge-success fonts font_label">لیبل-موفق</div>
+              <div class="badge badge-danger fonts font_label">لیبل-خطرناک</div>
+              <div class="badge badge-light fonts font_label">لیبل-روشن</div>
+              <div class="badge badge-warning fonts font_label">لیبل-اخطار</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>فونت لیبل های اوتلاین</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-outline-primary fonts font_label"> لیبل-اصلی</div>
+              <div class="badge badge-outline-success fonts font_label">لیبل-موفق</div>
+              <div class="badge badge-outline-danger fonts font_label">لیبل-خطرناک</div>
+              <div class="badge badge-outline-light fonts font_label">لیبل-روشن</div>
+              <div class="badge badge-outline-warning fonts font_label">لیبل-اخطار</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج -اوتلاین</h2>
+            </div>
+            <div class="element-card-body typography">
+              <a class="badge badge-outline-primary font_label" href="#">
+                لیبل-اصلی</a>
+              <a class="badge badge-outline-success font_label" href="#"> لیبل-موفق</a>
+              <a class="badge badge-outline-danger font_label" href="#"> لیبل-خطرناک</a>
+              <a class="badge badge-outline-light font_label" href="#"> لیبل-روشن</a>
+              <a class="badge badge-outline-warning font_label" href="#"> لیبل-اخطار</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج های بزرگ(XL)</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-primary xl font_label"> لیبل-اصلی</div>
+              <div class="badge badge-success xl font_label">لیبل-موفق</div>
+              <div class="badge badge-danger xl font_label">لیبل-خطرناک</div>
+              <div class="badge badge-light xl font_label">لیبل-روشن</div>
+              <div class="badge badge-warning xl font_label">لیبل-اخطار</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج بزرگ XL ؛ استایل لبه</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-primary xl rounded font_label"> لیبل-اصلی</div>
+              <div class="badge badge-success xl rounded font_label">لیبل-موفق</div>
+              <div class="badge badge-danger xl rounded font_label">لیبل-خطرناک</div>
+              <div class="badge badge-light xl rounded font_label">لیبل-روشن</div>
+              <div class="badge badge-warning xl rounded font_label">لیبل-اخطار</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج آیکن ها</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-outline-primary xl font_label"><i class="ti-settings"></i>لیبل-اصلی</div>
+              <div class="badge badge-outline-success xl font_label"><i data-feather="star"></i>لیبل-موفق</div>
+              <div class="badge badge-danger xl font_label"><i class="ti-settings"></i>لیبل-خطرناک</div>
+              <div class="badge badge-warning xl font_label"><i data-feather="star"></i>لیبل-اخطار </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج آیکن همراه با استایل فونت</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-outline-primary fonts font_label"><i class="ti-settings"></i>لیبل-اصلی</div>
+              <div class="badge badge-outline-success fonts font_label"><i data-feather="star"></i>لیبل-موفق</div>
+              <div class="badge badge-danger fonts font_label"><i class="ti-settings"></i>لیبل-خطرناک</div>
+              <div class="badge badge-warning fonts font_label"><i data-feather="star"></i>لیبل-اخطار</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-outline-primary sm fonts font_label"><i class="ti-settings"></i>لیبل-اصلی
+              </div>
+              <div class="badge badge-outline-success sm fonts font_label"><i data-feather="star"></i>لیبل-موفق
+              </div>
+              <div class="badge badge-primary sm fonts font_label"><i class="ti-settings"></i>لیبل-اصلی</div>
+              <div class="badge badge-success sm fonts font_label"><i data-feather="star"></i>لیبل-موفق</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="badge badge-outline-primary sm font_label">R</div>
+              <div class="badge badge-primary sm font_label">E</div>
+              <div class="badge badge-outline-success sm font_label">R</div>
+              <div class="badge badge-success sm font_label">E</div>
+              <div class="badge badge-outline-danger sm font_label">R</div>
+              <div class="badge badge-danger sm font_label">E</div>
+              <div class="badge badge-outline-warning sm font_label">R</div>
+              <div class="badge badge-warning sm font_label">E</div>
+              <div class="badge badge-outline-primary sm font_label">R</div>
+              <div class="badge badge-info sm font_label">E</div>
+              <div class="badge badge-outline-light sm font_label">R</div>
+              <div class="badge badge-light sm font_label">E</div>
+              <div class="badge badge-outline-dark sm font_label">R</div>
+              <div class="badge badge-dark sm font_label">E</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>بج</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="dot-btn dot-primary grow font_label">
+                <div class="badge badge-outline-primary xl"> لیبل-اصلی</div>
+              </div>
+              <div class="dot-btn dot-danger grow font_label">
+                <div class="badge badge-success xl">لیبل-موفق</div>
+              </div>
+              <div class="dot-btn dot-danger font_label">
+                <div class="badge badge-outline-primary xl"> لیبل-اصلی</div>
+              </div>
+              <div class="dot-btn dot-success font_label">
+                <div class="badge badge-success xl">لیبل-موفق</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="background">
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>رنگ پس زمینه</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="bg-primary p-15">bg-primary</div>
+              <div class="bg-success p-15">bg-success</div>
+              <div class="bg-danger p-15">bg-danger</div>
+              <div class="bg-light p-15">bg-light</div>
+              <div class="bg-warning p-15">bg-warning</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="background">
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>پس زمینه دکمه</h2>
+            </div>
+            <div class="element-card-body typography"><a class="btn btn-primary button-effect fonts font_label"
+                href="#">btn-primary</a><a class="btn btn-success button-effect fonts font_label"
+                href="#">btn-success</a><a class="btn btn-danger button-effect fonts font_label"
+                href="#">btn-danger</a><a class="btn btn-light button-effect fonts font_label" href="#">btn-light</a><a
+                class="btn btn-warning button-effect fonts font_label" href="#">btn-warning</a><a
+                class="btn btn-outline-primary button-effect fonts font_label" href="#">btn-primary</a><a
+                class="btn btn-outline-success button-effect fonts font_label" href="#">btn-success</a><a
+                class="btn btn-outline-danger button-effect fonts font_label" href="#">btn-danger</a><a
+                class="btn btn-outline-light button-effect fonts font_label" href="#">btn-light</a><a
+                class="btn btn-outline-warning button-effect fonts font_label" href="#">btn-warning</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="Icons">
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>آیکن ها</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="fonts"><a class="icon-btn btn-primary button-effect" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect" href="#"><i
+                    data-feather="users"></i></a><a class="icon-btn btn-danger button-effect" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-light button-effect" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-warning button-effect" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-outline-primary button-effect" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-outline-success button-effect" href="#"><i
+                    data-feather="users"></i></a><a class="icon-btn btn-outline-danger button-effect" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-outline-light button-effect" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-outline-warning button-effect" href="#"><i
+                    data-feather="star"></i></a></div>
+            </div>
+            <div class="element-card-body typography">
+              <div class="fonts">
+                <div class="dot-btn dot-primary"><a class="icon-btn btn-primary button-effect" href="#"><i
+                      data-feather="circle"></i></a></div>
+                <div class="dot-btn dot-success"><a class="icon-btn btn-success button-effect" href="#"><i
+                      data-feather="users"></i></a></div>
+                <div class="dot-btn dot-danger"><a class="icon-btn btn-danger button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-light"><a class="icon-btn btn-light button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-warning"><a class="icon-btn btn-warning button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-primary"><a class="icon-btn btn-outline-primary button-effect" href="#"><i
+                      data-feather="circle"></i></a></div>
+                <div class="dot-btn dot-success"><a class="icon-btn btn-outline-success button-effect" href="#"><i
+                      data-feather="users"></i></a></div>
+                <div class="dot-btn dot-danger"><a class="icon-btn btn-outline-danger button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-light"><a class="icon-btn btn-outline-light button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-warning"><a class="icon-btn btn-outline-warning button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+              </div>
+            </div>
+            <div class="element-card-body typography">
+              <div class="fonts"><a class="icon-btn btn-primary button-effect btn-xl" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect btn-xl" href="#"><i
+                    data-feather="users"></i></a><a class="icon-btn btn-danger button-effect btn-xl" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-light button-effect btn-xl" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-warning button-effect btn-xl" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-outline-primary button-effect btn-xl" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-outline-success button-effect btn-xl"
+                  href="#"><i data-feather="users"></i></a><a class="icon-btn btn-outline-danger button-effect btn-xl"
+                  href="#"><i data-feather="star"></i></a><a class="icon-btn btn-outline-light button-effect btn-xl"
+                  href="#"><i data-feather="star"></i></a></div>
+            </div>
+            <div class="element-card-body typography">
+              <div class="fonts"><a class="icon-btn btn-primary button-effect btn-xl rouded15" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect btn-xl rouded15"
+                  href="#"><i data-feather="users"></i></a><a class="icon-btn btn-danger button-effect btn-xl rouded15"
+                  href="#"><i data-feather="star"></i></a><a class="icon-btn btn-light button-effect btn-xl rouded15"
+                  href="#"><i data-feather="star"></i></a><a class="icon-btn btn-warning button-effect btn-xl rouded15"
+                  href="#"><i data-feather="star"></i></a><a
+                  class="icon-btn btn-outline-primary button-effect btn-xl rouded15" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-outline-success button-effect btn-xl rouded15"
+                  href="#"><i data-feather="users"></i></a><a
+                  class="icon-btn btn-outline-danger button-effect btn-xl rouded15" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-outline-light button-effect btn-xl rouded15"
+                  href="#"><i data-feather="star"></i></a></div>
+            </div>
+            <div class="element-card-body typography">
+              <div class="fonts">
+                <div class="dot-btn dot-primary grow"><a class="icon-btn btn-primary button-effect" href="#"><i
+                      data-feather="circle"></i></a></div>
+                <div class="dot-btn dot-success grow"><a class="icon-btn btn-success button-effect" href="#"><i
+                      data-feather="users"></i></a></div>
+                <div class="dot-btn dot-danger grow"><a class="icon-btn btn-danger button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-light grow"><a class="icon-btn btn-light button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-warning grow"><a class="icon-btn btn-warning button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-primary grow"><a class="icon-btn btn-outline-primary button-effect" href="#"><i
+                      data-feather="circle"></i></a></div>
+                <div class="dot-btn dot-success grow"><a class="icon-btn btn-outline-success button-effect" href="#"><i
+                      data-feather="users"></i></a></div>
+                <div class="dot-btn dot-danger grow"><a class="icon-btn btn-outline-danger button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-light grow"><a class="icon-btn btn-outline-light button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+                <div class="dot-btn dot-danger grow"><a class="icon-btn btn-outline-light button-effect" href="#"><i
+                      data-feather="star"></i></a></div>
+              </div>
+            </div>
+            <div class="element-card-body typography">
+              <div class="fonts"><a class="icon-btn btn-primary button-effect btn-sm" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect btn-sm" href="#"><i
+                    data-feather="users"></i></a><a class="icon-btn btn-danger button-effect btn-sm" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-light button-effect btn-sm" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-warning button-effect btn-sm" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-outline-success button-effect btn-sm"
+                  href="#"><i data-feather="users"></i></a><a class="icon-btn btn-outline-danger button-effect btn-sm"
+                  href="#"><i data-feather="star"></i></a><a class="icon-btn btn-outline-light button-effect btn-sm"
+                  href="#"><i data-feather="star"></i></a><a class="icon-btn btn-outline-warning button-effect btn-sm"
+                  href="#"><i data-feather="star"></i></a></div>
+            </div>
+            <div class="element-card-body typography">
+              <div class="fonts"><a class="icon-btn btn-primary button-effect btn-xs" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect btn-xs" href="#"><i
+                    data-feather="users"></i></a><a class="icon-btn btn-danger button-effect btn-xs" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-light button-effect btn-xs" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-warning button-effect btn-xs" href="#"><i
+                    data-feather="star"></i></a><a class="icon-btn btn-outline-primary button-effect btn-xs" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-outline-success button-effect btn-xs"
+                  href="#"><i data-feather="users"></i></a><a class="icon-btn btn-outline-danger button-effect btn-xs"
+                  href="#"><i data-feather="star"></i></a><a class="icon-btn btn-outline-light button-effect btn-xs"
+                  href="#"><i data-feather="star"></i></a><a class="icon-btn btn-outline-warning button-effect btn-xs"
+                  href="#"><i data-feather="star"></i></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="theme_btn_group">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>دکمه های استایل قالب</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="theme-btn-group fonts">
+                <div class="dot-btn dot-success grow"><a class="icon-btn btn-primary button-effect btn-sm" href="#"><i
+                      data-feather="circle"></i></a></div>
+                <div class="dot-btn dot-success grow"><a class="icon-btn btn-success button-effect btn-sm" href="#"><i
+                      data-feather="users"></i></a></div>
+              </div>
+              <div class="theme-btn-group fonts"><a class="icon-btn btn-primary button-effect btn-sm" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect btn-sm" href="#"><i
+                    data-feather="users"></i></a><a class="icon-btn btn-success button-effect btn-sm" href="#"><i
+                    data-feather="users"></i></a></div>
+              <div class="theme-btn-group fonts"><a class="icon-btn btn-primary button-effect" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect" href="#"><i
+                    data-feather="users"></i></a></div>
+              <div class="theme-btn-group fonts"><a class="icon-btn btn-primary button-effect" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-primary button-effect" href="#"><i
+                    data-feather="circle"></i></a><a class="icon-btn btn-success button-effect" href="#"><i
+                    data-feather="users"></i></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>تب ها  </h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="theme-tab">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                      role="tab" aria-controls="home" aria-selected="true">خانه</a></li>
+                  <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                      aria-controls="profile" aria-selected="false">پروفایل</a></li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade button-effect show active" id="home1" role="tabpanel"
+                    aria-labelledby="home-tab">محتوای خانه </div>
+                  <div class="tab-pane button-effect fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    محتوای پروفایل </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="massage_box">
+      <div class="col-12 p-0">
+        <div class="element-card">
+          <div class="element-card-header heading">
+            <h2>باکس پیام</h2>
+          </div>
+          <div class="element-card-body typography">
+            <ul class="msg-box fonts">
+              <li>
+                <h5>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h5>
+              </li>
+              <li>
+                <h5>لورم ایپسوم </h5>
+              </li>
+            </ul>
+            <ul class="msg-box fonts">
+              <li>
+                <h5>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h5>
+              </li>
+              <li>
+                <h5>لورم ایپسوم </h5>
+              </li>
+            </ul>
+            <ul class="msg-box fonts">
+              <li>
+                <h5>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h5>
+              </li>
+              <li>
+                <h5>لورم ایپسوم </h5>
+              </li>
+              <li>
+                <h5>لورم ایپسوم </h5>
+              </li>
+            </ul>
+            <ul class="msg-box fonts">
+              <li>
+                <h5>لورم ایپسوم </h5>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="massage_box">
+      <div class="col-12 p-0">
+        <div class="element-card">
+          <div class="element-card-header heading">
+            <h2>چت اصلی</h2>
+          </div>
+          <div class="element-card-body typography">
+            <ul class="chat-main">
+              <li>
+                <div class="chat-box">
+                  <div class="profile offline"><img class="bg-img" src="assets/images/avtar/1.jpg" alt="Avatar"></div>
+                  <div class="details">
+                    <h5 style="text-align: left;margin-left: 16px;">الهام حسینی</h5>
+                    <h6 style="margin-left: 16px;">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم.</h6>
+                  </div>
+                  <div class="date-status">
+                    <h6>1401/01/02</h6>
+                    <h6 class="font-success status"> دیده شده </h6>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="massage_box">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>اسناد و فایلهای ارسال شده</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="document">
+                <div class="filter-block">
+                  <div class="collapse-block open">
+                    <h5 class="block-title">اسناد و فایلهای ارسال شده</h5>
+                    <div class="block-content">
+                      <ul class="document-list">
+                        <li><i class="ti-folder font-danger"></i>
+                          <h5>Simple_practice_project-zip</h5>
+                        </li>
+                        <li><i class="ti-write font-success"></i>
+                          <h5>Word_Map-jpg</h5>
+                        </li>
+                        <li><i class="ti-zip font-primary"></i>
+                          <h5>Latest_Design_portfolio.pdf</h5>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>اسناد و فایلهای ارسال شده</h2>
+            </div>
+            <div class="element-card-body typography">
+              <div class="collapse-block open">
+                <h5 class="block-title">رسانه های ارسالی</h5>
+                <div class="block-content">
+                  <div class="share-media">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="media-big"><img class="bg-img" src="assets/images/avtar/1.jpg" alt="Avatar"></div>
+                      </div>
+                      <div class="col-4">
+                        <div class="media-small"><img class="bg-img" src="assets/images/avtar/2.jpg" alt="Avatar"></div>
+                        <div class="media-small"><img class="bg-img" src="assets/images/avtar/3.jpg" alt="Avatar"></div>
+                      </div>
+                      <div class="col-4">
+                        <div class="media-small"><img class="bg-img" src="assets/images/avtar/big/audiocall.jpg"
+                            alt="Avatar"></div>
+                        <div class="media-small"><img class="bg-img" src="assets/images/avtar/5.jpg" alt="Avatar"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>دکمه ها</h2>
+            </div>
+            <div class="element-card-body typography"><a
+                class="icon-btn btn-success button-effect btn-xl is-animating font_label" href="#"><i
+                  data-feather="phone"></i></a><a
+                class="icon-btn btn-danger button-effect btn-xl is-animating font_label" href="#"><i
+                  data-feather="phone"></i></a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="mb-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="element-card">
+            <div class="element-card-header heading">
+              <h2>دکمه ها</h2>
+            </div>
+            <div class="element-card-body popup-group">
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#audiocall">تماس صوتی</button>
+              <!-- Modal-->
+              <div class="modal fade" id="audiocall" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-body">
+                    <div class="audiocall1 call-modal"><img class="bg-img" src="assets/images/avtar/big/audiocall.jpg"
+                        alt="Avatar">
+                      <div class="center-con text-center">
+                        <div class="title2">الهه جعفری</div>
+                        <h6>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</h6>
+                        <ul>
+                          <li><a class="icon-btn btn-success button-effect btn-xl is-animating" href="#"><i
+                                data-feather="phone"></i></a></li>
+                          <li><a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall" href="#"><i
+                                data-feather="phone"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="custom-dropdown add-chat custom-scroll">
+                <h3>شروع گفتگوی جدید</h3>
+                <ul class="contact-log-main">
+                  <li>
+                    <div class="contact-box">
+                      <div class="profile offline"><img class="bg-img" src="assets/images/contact/2.jpg" alt="Avatar">
+                      </div>
+                      <div class="details">
+                        <h5>سعید مظفری</h5>
+                        <h6>+989155555555</h6>
+                      </div>
+                      <div class="contact-action">
+                        <div class="icon-btn btn-outline-primary btn-sm button-effect"><i
+                            data-feather="message-square"></i></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="active">
+                    <div class="contact-box">
+                      <div class="profile online"><img class="bg-img" src="assets/images/contact/1.jpg" alt="Avatar">
+                      </div>
+                      <div class="details">
+                        <h5>الهام حسینی</h5>
+                        <h6>+989155555555</h6>
+                      </div>
+                      <div class="contact-action">
+                        <div class="icon-btn btn-outline-primary btn-sm button-effect"><i
+                            data-feather="message-square"></i></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="contact-box">
+                      <div class="profile busy"><img class="bg-img" src="assets/images/contact/3.jpg" alt="Avatar">
+                      </div>
+                      <div class="details">
+                        <h5>مریم عباسی</h5>
+                        <h6>+989155555555</h6>
+                      </div>
+                      <div class="contact-action">
+                        <div class="icon-btn btn-outline-primary btn-sm button-effect"><i
+                            data-feather="message-square"></i></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="contact-box">
+                      <div class="profile unreachable"><img class="bg-img" src="assets/images/contact/4.jpg"
+                          alt="Avatar"></div>
+                      <div class="details">
+                        <h5>الهام حسینی</h5>
+                        <h6>+989155555555</h6>
+                      </div>
+                      <div class="contact-action">
+                        <div class="icon-btn btn-outline-primary btn-sm button-effect"><i
+                            data-feather="message-square"></i></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="contact-box">
+                      <div class="profile online"><img class="bg-img" src="assets/images/contact/4.jpg" alt="Avatar">
+                      </div>
+                      <div class="details">
+                        <h5>الهام حسینی</h5>
+                        <h6>+989155555555</h6>
+                      </div>
+                      <div class="contact-action">
+                        <div class="icon-btn btn-outline-primary btn-sm button-effect"><i
+                            data-feather="message-square"></i></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#audiorcvcall">دریافت تماس صوتی</button>
+              <!-- Modal-->
+              <div class="modal fade" id="audiorcvcall" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-body">
+                    <div class="audiocall2 call-modal"><img class="bg-img" src="assets/images/avtar/big/audiocall.jpg"
+                        alt="Avatar">
+                      <div class="center-con text-center">
+                        <div id="basicUsage2">00:00:00</div>
+                        <div class="title2">الهام حسینی</div>
+                        <h6>لورم ایپسوم متن ساختگی</h6>
+                        <ul>
+                          <li><a class="icon-btn btn-light button-effect mute" href="#" data-tippy-content="بی صدا"><i
+                                class="fa fa-microphone"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect mute" href="#" data-tippy-content="اسپکیر"><i
+                                class="fa fa-volume-up"></i></a></li>
+                          <li><a class="icon-btn btn-danger button-effect btn-xl is-animating" href="#"
+                              data-tippy-content="قطع کردن" data-dismiss="modal"><i data-feather="phone"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="افزودن تماس"><i
+                                data-feather="user-plus"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="توقف موقت"><i
+                                data-feather="pause"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#confercall">کنفرانس صوتی</button>
+              <!-- Modal-->
+              <div class="modal fade" id="confercall" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-body">
+                    <div class="conferencecall call-modal"><img class="bg-img"
+                        src="assets/images/avtar/big/audiocall.jpg" alt="Avatar">
+                      <div class="center-con text-center">
+                        <div class="usersprof">
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/2.jpg" alt="Avatar"></div>
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/3.jpg" alt="Avatar"></div>
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/5.jpg" alt="Avatar"></div>
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/big/videocall_bg.jpg"
+                              alt="Avatar"></div>
+                        </div>
+                        <p>تماس ورودی</p>
+                        <h3>کنفرانس صوتی</h3>
+                        <ul>
+                          <li><a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall" href="#"><i
+                                data-feather="phone"></i></a></li>
+                          <li><a class="icon-btn btn-success button-effect btn-xl is-animating" href="#"><i
+                                data-feather="video"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#onecall">تماس یک نفره</button>
+              <!-- Modal-->
+              <div class="modal fade" id="onecall" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-body">
+                    <div class="conferencecall call-modal"><img class="bg-img"
+                        src="assets/images/avtar/big/audiocall.jpg" alt="Avatar">
+                      <div class="center-con text-center">
+                        <div class="usersprof">
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/big/videocall_bg.jpg"
+                              alt="Avatar"></div>
+                        </div>
+                        <p>تماس ورودی</p>
+                        <h3>سعید مظفری</h3>
+                        <p>مدیر پروژه</p>
+                        <ul>
+                          <li><a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall" href="#"><i
+                                data-feather="phone"></i></a></li>
+                          <li><a class="icon-btn btn-success button-effect btn-xl is-animating" href="#"><i
+                                data-feather="video"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#nointernetmodal">عدم اینترنت</button>
+              <!-- Modal-->
+              <div class="modal fade" id="nointernetmodal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-body">
+                    <div class="no-internet animat-rate">
+                      <div class="connection-img"><img class="left-img" src="assets/images/disconnect/3.png"
+                          alt="Disconnected"><img class="right-img" src="assets/images/disconnect/2.png"
+                          alt="Disconnected internet"></div>
+                      <div class="quarterCircle">
+                        <div class="close-btn" data-dismiss="modal"><span aria-hidden="true">&times;</span></div>
+                      </div>
+                      <div class="bg_circle">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>
+                      <div class="cross"></div>
+                      <div class="cross1"></div>
+                      <div class="dot"></div>
+                      <div class="dot1"></div>
+                      <div class="content text-center"><a class="icon-btn btn-danger button-effect btn-sm is-animating"
+                          href="#"><i class="fa fa-wifi"></i></a>
+                        <h2>خطای اتصال</h2>
+                        <div class="title3">خطا در ارتباط، لطفاً اینترنت خود را چک کنید.</div>
+                        <button class="btn reconnect-btn" type="button" data-dismiss="modal">اتصال مجدد</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#videocall">تماس تصویری</button>
+              <!-- Modal-->
+              <div class="viddiolog modal fade" id="videocall" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-body">
+                    <div class="videocall call-modal"><img class="bg-img" src="assets/images/avtar/big/videocall_bg.jpg"
+                        alt="Avatar">
+                      <div class="small-image"><img class="bg-img" src="assets/images/avtar/big/videocall.jpg"
+                          alt="Avatar"></div>
+                      <div class="media videocall-details">
+                        <div class="usersprof">
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/2.jpg" alt="Avatar"></div>
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/3.jpg" alt="Avatar"></div>
+                        </div>
+                        <div class="media-body">
+                          <h5>الهام حسینی</h5>
+                          <h6>لورم ایپسوم متن ساختگی</h6>
+                        </div>
+                        <div id="basicUsage1">00:00:00</div>
+                        <div class="zoomcontent"><a class="text-dark" href="#!"
+                            onclick="javascript:toggleFullScreen()"><img src="assets/images/logo/maximize.svg"
+                              alt="zoom screen"></a></div>
+                      </div>
+                      <div class="center-con text-center">
+                        <ul>
+                          <li><a class="icon-btn btn-light button-effect pause" href="#"><i
+                                class="ti-control-pause"></i></a></li>
+                          <li><a class="icon-btn btn-danger button-effect btn-xl is-animating" href="#"><i
+                                data-feather="phone"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect mic" href="#"><i
+                                class="fa fa-microphone"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#videocallhang">قطع کردن تماس تصویری</button>
+              <!-- Modal-->
+              <div class="viddiolog modal fade" id="videocallhang" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-body">
+                    <div class="videocallhang call-modal"><img class="bg-img"
+                        src="assets/images/avtar/big/videocall_bg.jpg" alt="Avatar">
+                      <div class="media videocall-details">
+                        <div class="usersprof">
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/2.jpg" alt="Avatar"></div>
+                          <div class="profile"><img class="bg-img" src="assets/images/avtar/3.jpg" alt="Avatar"></div>
+                        </div>
+                        <div class="media-body">
+                          <h5>الهام حسینی</h5>
+                          <h6>لورم ایپسوم متن ساختگی</h6>
+                        </div>
+                        <div class="red-notification">
+                          <div class="dot-btn dot-danger grow"></div>
+                          <h6>در حال تماس</h6>
+                        </div>
+                        <div class="zoomcontent"><a class="text-dark" href="#!"
+                            onclick="javascript:toggleFullScreen()"><img src="assets/images/logo/maximize.svg"
+                              alt="zoom screen"></a></div>
+                      </div>
+                      <div class="center-con text-center">
+                        <ul>
+                          <li><a class="icon-btn btn-success button-effect btn-xl is-animating" href="#"><i
+                                data-feather="video"></i></a></li>
+                          <li><a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall" href="#"><i
+                                data-feather="phone"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary fonts font_label" type="button" data-toggle="modal"
+                data-target="#confvideocl">تماس تصویری کنفرانس</button>
+              <!-- Modal-->
+              <div class="modal fade" id="confvideocl" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="row confimg">
+                        <div class="col-6">
+                          <div class="vclimg"><img class="bg-img" src="assets/images/avtar/big/videocall_bg.jpg"
+                              alt="Avatar"></div>
+                        </div>
+                        <div class="col-6">
+                          <div class="vclimg"><img class="bg-img" src="assets/images/avtar/5.jpg" alt="Avatar"></div>
+                        </div>
+                        <div class="col-6">
+                          <div class="vclimg"><img class="bg-img" src="assets/images/avtar/2.jpg" alt="Avatar"></div>
+                        </div>
+                        <div class="col-6">
+                          <div class="vclimg"><img class="bg-img" src="assets/images/avtar/3.jpg" alt="Avatar"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer clfooter">
+                      <div id="basicUsage3">00:00:00
+                        <ul>
+                          <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="اسپیکر"><i
+                                data-feather="volume-2"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="دوربین"><i
+                                data-feather="camera-off"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="افزودن تماس"><i
+                                data-feather="user-plus"></i></a></li>
+                          <li><a class="icon-btn btn-danger button-effect btn-sm is-animating" href="#"
+                              data-dismiss="modal" data-tippy-content="قطع کردن"><i data-feather="phone"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="غیرفعال کردن ویدیو"><i
+                                data-feather="video-off"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect mic" href="#" data-tippy-content="بی صدا"><i
+                                data-feather="mic-off"></i></a></li>
+                          <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="توقف موقت"><i
+                                data-feather="pause"> </i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer>
+    <div class="container footer-main">
+      <div class="row footer-block">
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-title footer-mobile-title">
+            <h3>درباره</h3>
+          </div>
+          <div class="about-payment footer-contant">
+            <div class="logo"><a href="messenger.html"><img src="assets/images/logo/landing-logo.png" alt="logo" /></a>
+            </div>
+            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و
+              متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای
+              متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+            </p>
+            <ul class="social-group">
+              <li><a class="icon-btn btn-google button-effect btn-sm" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="icon-btn btn-twiter button-effect btn-sm" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="icon-btn btn-linkedin button-effect btn-sm" href="#"><i class="fa fa-linkedin"></i></a></li>
+              <li><a class="icon-btn btn-instagram button-effect btn-sm" href="#"><i class="fa fa-instagram"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3">
+          <div class="links">
+            <div class="footer-title">
+              <h3>لینک های مفید</h3>
+            </div>
+            <div class="footer-contant">
+              <ul>
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">درباره ما</a></li>
+                <li><a href="#">خدمات</a></li>
+                <li><a href="#">بلاگ</a></li>
+                <li><a href="#">تماس با ما</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3">
+          <div class="links">
+            <div class="footer-title">
+              <h3>راهنمای چیت چت</h3>
+            </div>
+            <div class="footer-contant">
+              <ul>
+                <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                <li><a href="#">سوالات متداول</a></li>
+                <li><a href="#">پشتیبانی</a></li>
+                <li><a href="#">تماس با ما</a></li>
+                <li><a href="#">تیم چیت چت</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4">
+          <div class="links">
+            <div class="footer-title">
+              <h3>دانلود برای</h3>
+            </div>
+            <div class="footer-contant">
+              <ul>
+                <li><a href="#">ویندوز</a></li>
+                <li><a href="#">لینوکس</a></li>
+                <li><a href="#">آی او اس</a></li>
+                <li><a href="#">اندروید</a></li>
+                <li><a href="#">مکینتاش</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4">
+          <div class="downlaod">
+            <div>
+              <div class="footer-title">
+                <h3>دانلود اپلیکیشن ها</h3>
+              </div>
+              <div class="footer-contant">
+                <div class="footer-btn">
+                  <a class="btn active" href="#">
+                    <div>
+                      <h4>دانلود از</h4>
+                      <h4>App store</h4>
+                    </div>
+                    <i class="fa fa-apple"></i>
+                  </a>
+                  <a class="btn" href="#">
+                    <div>
+                      <h4>دانلود از</h4>
+                      <h4>Google play</h4>
+                    </div>
+                    <i class="fa fa-play"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-back-block"><img class="img-fluid inner1" src="assets/images/landing/footer/2.png"
+        alt="footer-back-img" /><img class="img-fluid inner2" src="assets/images/landing/footer/2.png"
+        alt="footer-back-img" /></div>
+    <div class="container copyright-footer">
+      <div class="row copyright">
+        <div class="col-md-6 col-sm-12">
+          <p>© 1401 چیت چت. کلیه حقوق محفوظ است</p>
+        </div>
+        <div class="col-md-6 col-sm-12 links_horizontal">
+          <p class="text-right">توسعه داده شده از صمیم <span>&hearts; </span>توسط تیم چیت چت</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="tap-top">
+    <div><i class="fa fa-angle-double-up"></i></div>
+  </div>
+  <script src="assets/js/jquery-3.3.1.min.js"></script>
+  <script src="assets/js/owl.carousel.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/tippy-bundle.iife.min.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
+  <script src="assets/js/switchery.js"></script>
+  <script src="assets/js/feather-icon/feather.min.js"></script>
+  <script src="assets/js/feather-icon/feather-icon.js"></script>
+  <script src="assets/js/tour/intro.js"></script>
+  <script src="assets/js/tour/intro-init.js"></script>
+  <script src="assets/js/jquery.magnific-popup.js"></script>
+  <script src="assets/js/zoom-gallery.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
