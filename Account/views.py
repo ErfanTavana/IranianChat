@@ -11,7 +11,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('home')  # صفحه‌ای که می‌خواهید پس از ورود موفقیت‌آمیز کاربر او را به آن هدایت کنید
+            return redirect('index_name')  # صفحه‌ای که می‌خواهید پس از ورود موفقیت‌آمیز کاربر او را به آن هدایت کنید
         else:
             error_message = "نام کاربری یا رمز ورود اشتباه است."
             return render(request, 'login.html', {
@@ -21,3 +21,4 @@ def login(request):
                 'username': username,
             })
     return render(request, 'login.html')
+
