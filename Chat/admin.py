@@ -1,11 +1,23 @@
 from django.contrib import admin
-
-
-class ChatAdmin(admin.ModelAdmin):
-    list_display = ('id', 'participant1', 'participant2', 'created_at')
-    search_fields = ('participant1__username', 'participant2__username', 'created_at')
 from django import forms
 from .models import Message
+
+from .models import Chat
+
+
+@admin.register(Chat)
+class ChatAdmin(admin.ModelAdmin):
+    list_display = ('participant1', 'participant2', 'created_at')
+    list_filter = ('participant1', 'participant2', 'created_at')
+    search_fields = ('participant1__username', 'participant2__username')
+    date_hierarchy = 'created_at'
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.select_related('participant1', 'participant2')
+        return queryset
+
+
 
 class MessageAdminForm(forms.ModelForm):
     class Meta:
@@ -14,9 +26,12 @@ class MessageAdminForm(forms.ModelForm):
 
     class Media:
         js = ('js/upload_progress.js',)
+
+
 # admin.py
 from django.contrib import admin
 from .models import Message
+
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):

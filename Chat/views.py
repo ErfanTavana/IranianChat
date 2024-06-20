@@ -1,15 +1,22 @@
 from django.db.models import Q
 from django.http import HttpResponseForbidden
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from Account.models import Profile
-from Chat.models import Chat, Message
+from Chat.models import Chat
+from .forms import FileUploadForm
+from .models import Message
 
 
 def index(request):
     if not request.user.is_authenticated:
         return redirect('login_name')
     profiles = Profile.objects.all()
+    for profile in profiles:
+        chat_create, get = Chat.objects.get_or_create(participant1_id=request.user.id, participant2_id=profile.id)
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user))
     return render(request, 'chat_blank.html', {'profiles': profiles, 'chats': chats})
 
@@ -30,3 +37,18 @@ def chat_details(request, id):
 
     return render(request, 'messenger.html',
                   {'chat_detail': chat_detail, 'chats': chats, 'profiles': profiles, 'messages': messages})
+
+
+def file_upload_view(request):
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors})
+    else:
+        form = FileUploadForm()
+    return render(request, 'file_upload.html', {'form': form})

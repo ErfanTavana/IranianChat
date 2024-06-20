@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <link rel="stylesheet" href="{% static 'assets/css/upload_progress.css' %}">
+</head>
+<body>
+<h1>Upload File</h1>
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+<div class="progress-bar">
+    <div class="progress"></div>
+</div>
+<script src="{% static 'assets/js/upload_progress.js' %}"></script>
+</body>
+</html>

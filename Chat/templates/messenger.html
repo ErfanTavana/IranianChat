@@ -3213,25 +3213,17 @@
                 <div class="contact-chat">
                     <ul class="chatappend">
                         {% for message in messages %}
-                            <li class="{% if message.sender == request.user %}sent{% else %}replies{% endif %}">
+                            <li class="{% if message.sender == request.user %}sent{% else %}replies{% endif %}"
+                                data-message-id="{{ message.id }}">
                                 <div class="media">
                                     <div class="profile mr-4">
                                         <img alt="Avatar" class="bg-img" src="
-
-
-
-
-
-                                                {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}''{% endif %}"/>
+                                                {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
                                         <div class="contact-name">
-                                            <h5>
-                                                {{ message.sender.username }}
-                                            </h5>
-                                            <h6>
-                                                {{ message.timestamp|date:"H:i A" }}
-                                            </h6>
+                                            <h5>{{ message.sender.username }}</h5>
+                                            <h6>{{ message.timestamp|date:"H:i A" }}</h6>
                                             <ul class="msg-box">
                                                 {% if message.file %}
                                                     <li class="msg-setting-main file-message {% if message.sender == request.user %}message-sent{% else %}message-received{% endif %}">
@@ -3256,9 +3248,7 @@
                                                 {% endif %}
                                                 {% if message.content %}
                                                     <li class="msg-setting-main">
-                                                        <h5>
-                                                            {{ message.content }}
-                                                        </h5>
+                                                        <h5>{{ message.content }}</h5>
                                                     </li>
                                                 {% endif %}
                                             </ul>
@@ -8507,6 +8497,8 @@
         </div>
     </div>
 </div>
+
+
 <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}">
 </script>
 <script src="{% static 'assets/js/owl.carousel.js' %}">
@@ -8612,5 +8604,6 @@
 
     });
 </script>
+
 </body>
 </html>
