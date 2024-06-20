@@ -15,6 +15,7 @@ class Message(models.Model):
     content = models.TextField(blank=True)
     file = models.FileField(upload_to='chat_files/', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    seen = models.BooleanField(default=False)  # New field to track seen status
 
     def __str__(self):
         return f"Message from {self.sender.username} at {self.timestamp}"
