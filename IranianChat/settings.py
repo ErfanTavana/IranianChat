@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Account.apps.AccountConfig',
     'Chat.apps.ChatConfig',
+    # 'channels',
+
 ]
 
 MIDDLEWARE = [
@@ -121,3 +123,17 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#
+# #Channels
+# ASGI_APPLICATION = 'your_project_name.asgi.application'
+#
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels.layers.RedisChannelLayer',
+#         'CONFIG': {
+#             'hosts': [('localhost', 6379)],  # Redis configuration
+#         },
+#     },
+# }

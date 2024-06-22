@@ -312,10 +312,6 @@
                                     </div>
                                 </div>
                             </form>
-                            <a class="icon-btn btn-primary btn-fix chat-cont-toggle outside" href="#">
-                                <i data-feather="plus">
-                                </i>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -3103,9 +3099,11 @@
                                 <div class="media-body">
                                     <h5>
                                         {% if request.user.id == chat_detail.participant1.id %}
-                                            {{ chat_detail.participant2.first_name }} {{ chat_detail.participant2.last_name }}
+                                            {{ chat_detail.participant2.first_name }}
+                                            {{ chat_detail.participant2.last_name }}
                                         {% else %}
-                                            {{ chat_detail.participant1.first_name }}  {{ chat_detail.participant1.last_name }}
+                                            {{ chat_detail.participant1.first_name }}
+                                            {{ chat_detail.participant1.last_name }}
 
                                         {% endif %}
                                     </h5>
@@ -3221,6 +3219,8 @@
                                     <div class="profile mr-4">
                                         <img alt="Avatar" class="bg-img" src="
 
+
+
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
@@ -3262,8 +3262,8 @@
                         {% endfor %}
                     </ul>
                 </div>
-
             </div>
+
             <div class="messages custom-scroll" id="blank">
                 <div class="contact-details">
                     <div class="row">
@@ -4286,10 +4286,6 @@
             </div>
             <div class="message-input">
                 <div class="wrap emojis-main">
-                    <a class="icon-btn btn-outline-primary button-effect mr-3 toggle-sticker outside" href="#">
-                        <svg enable-background="new 0 0 2158 2148" height="2148px" id="Layer_1" version="1.1"
-                             viewbox="0 0 2158 2148" width="2158px" x="0px" xml:space="preserve"
-                             xmlns="http://www.w3.org/2000/svg" y="0px">
          <path clip-rule="evenodd"
                d="M699,693                        c0,175.649,0,351.351,0,527c36.996,0,74.004,0,111,0c18.058,0,40.812-2.485,57,1c11.332,0.333,22.668,0.667,34,1                        c7.664,2.148,20.769,14.091,25,20c8.857,12.368,6,41.794,6,62c0,49.329,0,98.672,0,148c175.649,0,351.351,0,527,0                        c0-252.975,0-506.025,0-759C1205.692,693,952.308,693,699,693z"
                fill="none" fill-rule="evenodd" stroke="#000000" stroke-miterlimit="10" stroke-width="60">
@@ -4311,552 +4307,17 @@
          </polygon>
         </svg>
                     </a>
-                    <div class="dot-btn dot-primary mr-3">
-                        <a class="icon-btn btn-outline-primary button-effect toggle-emoji" href="#">
-                            <i data-feather="smile">
-                            </i>
-                        </a>
-                    </div>
                     <div class="contact-poll">
                         <a class="icon-btn btn-outline-primary mr-4 outside" href="#">
-                            <i class="fa fa-plus">
+                            <i data-feather="paperclip">
                             </i>
                         </a>
-                        <div class="contact-poll-content">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i data-feather="image">
-                                        </i>
-                                        گالری
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i data-feather="camera">
-                                        </i>
-                                        دوربین
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-target="#snippetModal" data-toggle="modal">
-                                        <i data-feather="code">
-                                        </i>
-                                        قطعه کد
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i data-feather="user">
-                                        </i>
-                                        مخاطب
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i data-feather="map-pin">
-                                        </i>
-                                        موقعیت مکانی
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i data-feather="clipboard">
-                                        </i>
-                                        فایل
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-target="#pollModal" data-toggle="modal">
-                                        <i data-feather="bar-chart-2">
-                                        </i>
-                                        نظرسنجی
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i data-feather="paperclip">
-                                        </i>
-                                        پیوست
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                     <input class="setemoj" id="setemoj" placeholder="پیام خود را اینجا بنویسید..." type="text"/>
-                    <a class="icon-btn btn-outline-primary button-effect mr-3 ml-3" href="#">
-                        <i data-feather="mic">
-                        </i>
-                    </a>
                     <button class="submit icon-btn btn-primary disabled" disabled="disabled" id="send-msg">
                         <i data-feather="send">
                         </i>
                     </button>
-                    <div class="emojis-contain">
-                        <div class="emojis-sub-contain custom-scroll">
-                            <ul>
-                                <li>
-                                    😀
-                                </li>
-                                <li>
-                                    😁
-                                </li>
-                                <li>
-                                    😂
-                                </li>
-                                <li>
-                                    😃
-                                </li>
-                                <li>
-                                    😄
-                                </li>
-                                <li>
-                                    😅
-                                </li>
-                                <li>
-                                    😆
-                                </li>
-                                <li>
-                                    😇
-                                </li>
-                                <li>
-                                    😈
-                                </li>
-                                <li>
-                                    😉
-                                </li>
-                                <li>
-                                    😊
-                                </li>
-                                <li>
-                                    😋
-                                </li>
-                                <li>
-                                    😌
-                                </li>
-                                <li>
-                                    😍
-                                </li>
-                                <li>
-                                    😎
-                                </li>
-                                <li>
-                                    😏
-                                </li>
-                                <li>
-                                    😐
-                                </li>
-                                <li>
-                                    😑
-                                </li>
-                                <li>
-                                    😒
-                                </li>
-                                <li>
-                                    😓
-                                </li>
-                                <li>
-                                    😔
-                                </li>
-                                <li>
-                                    😕
-                                </li>
-                                <li>
-                                    😖
-                                </li>
-                                <li>
-                                    😗
-                                </li>
-                                <li>
-                                    😘
-                                </li>
-                                <li>
-                                    😙
-                                </li>
-                                <li>
-                                    😚
-                                </li>
-                                <li>
-                                    😛
-                                </li>
-                                <li>
-                                    😜
-                                </li>
-                                <li>
-                                    😝
-                                </li>
-                                <li>
-                                    😞
-                                </li>
-                                <li>
-                                    😟
-                                </li>
-                                <li>
-                                    😠
-                                </li>
-                                <li>
-                                    😡
-                                </li>
-                                <li>
-                                    😢
-                                </li>
-                                <li>
-                                    😣
-                                </li>
-                                <li>
-                                    😥
-                                </li>
-                                <li>
-                                    😦
-                                </li>
-                                <li>
-                                    😧
-                                </li>
-                                <li>
-                                    😨
-                                </li>
-                                <li>
-                                    😩
-                                </li>
-                                <li>
-                                    😪
-                                </li>
-                                <li>
-                                    😫
-                                </li>
-                                <li>
-                                    😭
-                                </li>
-                                <li>
-                                    😮
-                                </li>
-                                <li>
-                                    😯
-                                </li>
-                                <li>
-                                    😰
-                                </li>
-                                <li>
-                                    😱
-                                </li>
-                                <li>
-                                    😲
-                                </li>
-                                <li>
-                                    😳
-                                </li>
-                                <li>
-                                    😴
-                                </li>
-                                <li>
-                                    😵
-                                </li>
-                                <li>
-                                    😶
-                                </li>
-                                <li>
-                                    😷
-                                </li>
-                                <li>
-                                    😸
-                                </li>
-                                <li>
-                                    😹
-                                </li>
-                                <li>
-                                    😺
-                                </li>
-                                <li>
-                                    😻
-                                </li>
-                                <li>
-                                    😼
-                                </li>
-                                <li>
-                                    😽
-                                </li>
-                                <li>
-                                    😾
-                                </li>
-                                <li>
-                                    🙀
-                                </li>
-                                <li>
-                                    🙃
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="sticker-contain">
-                        <div class="sticker-sub-contain custom-scroll">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/1.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/2.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/3.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/3.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/4.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/5.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/6.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/7.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/8.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/9.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/10.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/11.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/12.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/13.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/14.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/15.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/16.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/17.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/18.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/19.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/20.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/21.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/22.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/23.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/24.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/25.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/26.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/27.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/28.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/29.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/30.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/31.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/32.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/33.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/34.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/35.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/36.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/37.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/38.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/39.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/40.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/41.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/42.gif' %}"/>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img alt="sticker" class="img-fluid"
-                                             src="{% static 'assets/images/sticker/43.gif' %}"/>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
