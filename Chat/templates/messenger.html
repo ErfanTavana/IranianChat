@@ -372,41 +372,42 @@
                                          role="tabpanel">
                                         <ul class="chat-main">
                                             {% for chat in chats %}
+                                                <a href="{% url 'chat_details_name' chat.id %}">
+                                                    <li class="{% if chat.id == chat_detail.id %}active{% endif %}"
+                                                        data-to="{% if chat.id == chat_detail.id %}chating{% else %}blank{% endif %}">
 
-                                                <li class="{% if chat.id == chat_detail.id %}active{% endif %}"
-                                                    data-to="{% if chat.id == chat_detail.id %}chating{% else %}blank{% endif %}">
-
-                                                    <div class="chat-box">
-                                                        <div class="profile offline">
-                                                            <img alt="Avatar" class="bg-img"
-                                                                 src="{{ chat.participant2.profile.profile_picture.url }}"/>
+                                                        <div class="chat-box">
+                                                            <div class="profile offline">
+                                                                <img alt="Avatar" class="bg-img"
+                                                                     src="{{ chat.participant2.profile.profile_picture.url }}"/>
+                                                            </div>
+                                                            <div class="details">
+                                                                <h5>
+                                                                    {% if chat.participant1 == request.user %}
+                                                                        {{ chat.participant2.first_name }}
+                                                                        {{ chat.participant2.last_name }}
+                                                                    {% else %}
+                                                                        {{ chat.participant1.first_name }}
+                                                                        {{ chat.participant1.last_name }}
+                                                                    {% endif %}
+                                                                </h5>
+                                                                <h6>
+                                                                    {{ chat.messages.last.content }}
+                                                                </h6>
+                                                            </div>
+                                                            <div class="date-status">
+                                                                <i class="ti-pin2">
+                                                                </i>
+                                                                <h6>
+                                                                    {{ chat.created_at|date:"Y/m/d" }}
+                                                                </h6>
+                                                                <h6 class="font-success status">
+                                                                    دیده شده
+                                                                </h6>
+                                                            </div>
                                                         </div>
-                                                        <div class="details">
-                                                            <h5>
-                                                                {% if chat.participant1 == request.user %}
-                                                                    {{ chat.participant2.first_name }}
-                                                                    {{ chat.participant2.last_name }}
-                                                                {% else %}
-                                                                    {{ chat.participant1.first_name }}
-                                                                    {{ chat.participant1.last_name }}
-                                                                {% endif %}
-                                                            </h5>
-                                                            <h6>
-                                                                {{ chat.messages.last.content }}
-                                                            </h6>
-                                                        </div>
-                                                        <div class="date-status">
-                                                            <i class="ti-pin2">
-                                                            </i>
-                                                            <h6>
-                                                                {{ chat.created_at|date:"Y/m/d" }}
-                                                            </h6>
-                                                            <h6 class="font-success status">
-                                                                دیده شده
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                </a>
                                             {% endfor %}
                                         </ul>
                                     </div>
@@ -3102,9 +3103,10 @@
                                 <div class="media-body">
                                     <h5>
                                         {% if request.user.id == chat_detail.participant1.id %}
-                                            {{ chat_detail.participant2.username }}
+                                            {{ chat_detail.participant2.first_name }} {{ chat_detail.participant2.last_name }}
                                         {% else %}
-                                            {{ chat_detail.participant1.username }}
+                                            {{ chat_detail.participant1.first_name }}  {{ chat_detail.participant1.last_name }}
+
                                         {% endif %}
                                     </h5>
                                     <div class="badge badge-success">
@@ -3218,6 +3220,7 @@
                                 <div class="media">
                                     <div class="profile mr-4">
                                         <img alt="Avatar" class="bg-img" src="
+
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
