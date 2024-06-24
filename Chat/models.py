@@ -15,6 +15,8 @@ class Chat(models.Model):
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 class Message(models.Model):
     chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE)
@@ -26,8 +28,7 @@ class Message(models.Model):
     seen = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        if not self.id:  # چک کردن که این شیء جدید است یا خیر
-            super().save(*args, **kwargs)  # ابتدا شیء را ذخیره کنید تا timestamp تولید شود
+        self.timestamp = timezone.now()
         if not self.solar_time_stamp:
             self.solar_time_stamp = convert_to_shamsi(self.timestamp.isoformat())
         super().save(*args, **kwargs)

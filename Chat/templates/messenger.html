@@ -406,8 +406,14 @@
 
                                                         <div class="chat-box">
                                                             <div class="profile offline">
-                                                                <img alt="Avatar" class="bg-img"
-                                                                     src="{{ chat.participant2.profile.profile_picture.url }}"/>
+                                                                <img alt="Avatar" class="bg-img" src="
+
+
+
+
+
+                                                                        {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
+
                                                             </div>
                                                             <div class="details">
                                                                 <h5>
@@ -3265,6 +3271,13 @@
 
 
 
+
+
+
+
+
+
+
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
@@ -3379,7 +3392,6 @@
                     setInterval(fetchMessages, 5000);
                 </script>
             </div>
-
             <div class="messages custom-scroll" id="blank">
                 <div class="contact-details">
                     <div class="row">
@@ -4436,6 +4448,64 @@
                     </button>
                 </div>
             </div>
+            <script>
+                document.getElementById('send-msg').addEventListener('click', function () {
+                    const messageContent = document.getElementById('setemoj').value;
+// URL مورد استفاده
+                    const url = window.location.href;
+
+// Regex برای استخراج چت ایدی
+                    const regex = /\/chat_details\/(\d+)/;
+
+// استخراج چت ایدی از URL
+                    const match = url.match(regex);
+                    const chatId = match ? match[1] : null;
+
+// نمایش چت ایدی استخراج شده
+                    console.log('chatId:', chatId); // Output: chatId: 3
+                    const senderId = 1; // باید به صورت دینامیک مقداردهی شود
+
+                    if (messageContent.trim() !== '') {
+                        fetch('/send_message/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken')
+                            },
+                            body: JSON.stringify({
+                                chat_id: chatId,
+                                sender_id: senderId,
+                                content: messageContent
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    document.getElementById('setemoj').value = '';
+                                    fetchMessages();
+                                } else {
+                                    console.error(data.message);
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                });
+
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+            </script>
         </div>
         <div class="call-content tabto">
             <a class="icon-btn btn-outline-primary button-effect mobile-back mb-3" href="#">

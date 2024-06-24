@@ -4,20 +4,30 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from Account.models import Profile
-from Chat.models import Chat
 from .forms import FileUploadForm
-from .models import Message
 
 
 def index(request):
     if not request.user.is_authenticated:
         return redirect('login_name')
-    profiles = Profile.objects.all()
-    for profile in profiles:
-        if request.user.id != profile.id:
-            print(profile.id)
-            chat_create, get = Chat.objects.get_or_create(participant1_id=request.user.id, participant2_id=profile.id)
+
+    profiles = Profile.objects.exclude(user=request.user)  # حذف پروفایل فعلی کاربر از لیست
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user))
+
+    for profile in profiles:
+        # بررسی وجود چت بین کاربر فعلی و پروفایل‌های دیگر
+        existing_chat = Chat.objects.filter(
+            Q(participant1=request.user, participant2=profile.user) |
+            Q(participant1=profile.user, participant2=request.user)
+        ).first()
+
+        if not existing_chat:
+            # اگر چت بین این دو کاربر وجود ندارد، آن را ایجاد کنید
+            chat_create, created = Chat.objects.get_or_create(
+                participant1=request.user,
+                participant2=profile.user
+            )
+    # بازگرداندن پروفایل‌ها و چت‌های موجود به قالب
     return render(request, 'chat_blank.html', {'profiles': profiles, 'chats': chats})
 
 
@@ -25,6 +35,22 @@ def chat_details(request, id):
     if not request.user.is_authenticated:
         return redirect('login_name')
 
+    profiles = Profile.objects.exclude(user=request.user)  # حذف پروفایل فعلی کاربر از لیست
+    chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user))
+
+    for profile in profiles:
+        # بررسی وجود چت بین کاربر فعلی و پروفایل‌های دیگر
+        existing_chat = Chat.objects.filter(
+            Q(participant1=request.user, participant2=profile.user) |
+            Q(participant1=profile.user, participant2=request.user)
+        ).first()
+
+        if not existing_chat:
+            # اگر چت بین این دو کاربر وجود ندارد، آن را ایجاد کنید
+            chat_create, created = Chat.objects.get_or_create(
+                participant1=request.user,
+                participant2=profile.user
+            )
     chat_detail = get_object_or_404(Chat, id=id)
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user))
 
@@ -54,7 +80,6 @@ def file_upload_view(request):
     return render(request, 'file_upload.html', {'form': form})
 
 
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -73,7 +98,9 @@ def get_messages(request, chat_id):
                                                                                                  'content', 'timestamp',
                                                                                                  'solar_time_stamp',
                                                                                                  'file',
-                                                                                                 'sender__profile__profile_picture','sender__profile__first_name','sender__profile__last_name')
+                                                                                                 'sender__profile__profile_picture',
+                                                                                                 'sender__profile__first_name',
+                                                                                                 'sender__profile__last_name')
     messages_list = list(messages)
 
     for message in messages_list:
@@ -94,3 +121,33 @@ def get_messages(request, chat_id):
             message['profile_picture_url'] = settings.STATIC_URL + 'path/to/default/avatar.jpg'
 
     return JsonResponse(messages_list, safe=False)
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Message, Chat
+import json
+
+
+@csrf_exempt
+def send_message(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        chat_id = data.get('chat_id')
+        sender_id = data.get('sender_id')
+        content = data.get('content')
+        try:
+            chat = Chat.objects.get(id=chat_id)
+        except:
+            return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+        if chat_id and content:
+            message = Message.objects.create(
+                chat=chat,
+                sender_id=request.user.id,
+                content=content,
+            )
+            return JsonResponse({'status': 'success', 'message': 'Message sent successfully'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid data'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

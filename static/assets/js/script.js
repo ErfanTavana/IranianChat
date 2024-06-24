@@ -771,59 +771,59 @@
       $("#send-msg").removeClass("disabled").removeAttr("disabled");
     }
   });
+ //
+ //  function newMessage() {
+ //    var message = $(".message-input input").val();
+ //    if ($.trim(message) == "") {
+ //      return false;
+ //    }
+ //    $(
+ //     `<li class="replies">
+ //     <div class="media">
+ //         <div class="profile mr-4" style="background-image: url('assets/images/contact/1.jpg');
+ //         background-size: cover; background-position: center center;">
+ //         </div>
+ //         <div class="media-body">
+ //             <div class="contact-name">
+ //                 <h5>الهام جعفری</h5>
+ //                 <h6>01:40 صبح</h6>
+ //                 <ul class="msg-box">
+ //                     <li class="msg-setting-main">
+ //                         <h5>${message}</h5>
+ //                     </li>
+ //                 </ul>
+ //             </div>
+ //         </div>
+ //     </div>
+ // </li>`
+ //    ).appendTo($(".messages .chatappend"));
+ //    $(".message-input input").val(null);
+ //    $(".chat-main .active .details h6").html("<span>شما : </span>" + message);
+ //    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+ //  }
 
-  function newMessage() {
-    var message = $(".message-input input").val();
-    if ($.trim(message) == "") {
-      return false;
-    }
-    $(
-     `<li class="replies">
-     <div class="media">
-         <div class="profile mr-4" style="background-image: url('assets/images/contact/1.jpg'); 
-         background-size: cover; background-position: center center;">
-         </div>
-         <div class="media-body">
-             <div class="contact-name">
-                 <h5>الهام جعفری</h5>
-                 <h6>01:40 صبح</h6>
-                 <ul class="msg-box">
-                     <li class="msg-setting-main">
-                         <h5>${message}</h5>
-                     </li>
-                 </ul>
-             </div>
-         </div>
-     </div>
- </li>`
-    ).appendTo($(".messages .chatappend"));
-    $(".message-input input").val(null);
-    $(".chat-main .active .details h6").html("<span>شما : </span>" + message);
-    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-  }
-
-  function typingMessage() {
-    $(
-      `<li class="sent last typing-m"> <div class="media"> <div class="profile mr-4 bg-size" 
-      style="background-image: url('assets/images/contact/2.jpg'); 
-      background-size: cover; background-position: center center; display: block;">
-      <img class="bg-img" src='assets/images/contact/2.jpg' alt="Avatar" style="display: none;">
-      </div><div class="media-body"> <div class="contact-name"> <h5>سعید مظفری</h5> <h6>01:42 صبح</h6> 
-      <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`
-    ).appendTo($(".messages .chatappend"));
-    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-    setTimeout(function () {
-      $(".typing-m").hide();
-      $(
-        `<li class="sent"> <div class="media"> <div class="profile mr-4 bg-size" 
-        style="background-image: url('assets/images/contact/2.jpg'); 
-        background-size: cover; background-position: center center; display: block;"></div>
-        <div class="media-body"> <div class="contact-name"> <h5>سعید مظفری</h5> <h6>01:35 صبح</h6> <ul class="msg-box"> 
-        <li> <h5>سلام.متاسفانه در حال حاضر توانایی پاسخگویی به شما را ندارم.در اسرع وقت پاسخ برای شما ارسال میشود. </h5> <div class="badge badge-success sm ml-2"> R</div></li></ul> </div></div></div></li>`
-      ).appendTo($(".messages .chatappend"));
-      $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-    }, 2000);
-  }
+  // function typingMessage() {
+  //   $(
+  //     `<li class="sent last typing-m"> <div class="media"> <div class="profile mr-4 bg-size"
+  //     style="background-image: url('assets/images/contact/2.jpg');
+  //     background-size: cover; background-position: center center; display: block;">
+  //     <img class="bg-img" src='assets/images/contact/2.jpg' alt="Avatar" style="display: none;">
+  //     </div><div class="media-body"> <div class="contact-name"> <h5>سعید مظفری</h5> <h6>01:42 صبح</h6>
+  //     <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`
+  //   ).appendTo($(".messages .chatappend"));
+  //   $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+  //   // setTimeout(function () {
+  //   //   $(".typing-m").hide();
+  //   //   $(
+  //   //     `<li class="sent"> <div class="media"> <div class="profile mr-4 bg-size"
+  //   //     style="background-image: url('assets/images/contact/2.jpg');
+  //   //     background-size: cover; background-position: center center; display: block;"></div>
+  //   //     <div class="media-body"> <div class="contact-name"> <h5>سعید مظفری</h5> <h6>01:35 صبح</h6> <ul class="msg-box">
+  //   //     <li> <h5>سلام.متاسفانه در حال حاضر توانایی پاسخگویی به شما را ندارم.در اسرع وقت پاسخ برای شما ارسال میشود. </h5> <div class="badge badge-success sm ml-2"> R</div></li></ul> </div></div></div></li>`
+  //   //   ).appendTo($(".messages .chatappend"));
+  //   //   $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+  //   // }, 2000);
+  // }
 
   /*=====================
        25. Sticker

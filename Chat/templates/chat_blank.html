@@ -377,8 +377,9 @@
                                                     <li href="{% url 'chat_details_name'  chat.id %}" data-to="blank">
                                                         <div class="chat-box">
                                                             <div class="profile offline">
-                                                                <img alt="Avatar" class="bg-img"
-                                                                     src="{{ chat.participant2.profile.profile_picture.url }}"/>
+                                                                <img alt="Avatar" class="bg-img" src="
+                                                                        {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
+
                                                             </div>
                                                             <div class="details">
                                                                 <h5>
