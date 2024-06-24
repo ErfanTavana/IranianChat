@@ -13,6 +13,9 @@ class Chat(models.Model):
         return f"Chat between {self.participant1.username} and {self.participant2.username}"
 
 
+from django.db import models
+from django.contrib.auth.models import User
+
 class Message(models.Model):
     chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE)
     sender = models.ForeignKey(User, related_name='messages', on_delete=models.CASCADE)
@@ -20,11 +23,13 @@ class Message(models.Model):
     file = models.FileField(upload_to='chat_files/', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     solar_time_stamp = models.CharField(max_length=40, blank=True, null=True)
-    seen = models.BooleanField(default=False)  # New field to track seen status
+    seen = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        if not self.id:  # چک کردن که این شیء جدید است یا خیر
+            super().save(*args, **kwargs)  # ابتدا شیء را ذخیره کنید تا timestamp تولید شود
         if not self.solar_time_stamp:
-            self.solar_time_stamp = convert_to_shamsi(str(self.timestamp))
+            self.solar_time_stamp = convert_to_shamsi(self.timestamp.isoformat())
         super().save(*args, **kwargs)
 
     def __str__(self):

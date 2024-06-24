@@ -5,7 +5,6 @@ from django.shortcuts import render
 
 from Account.models import Profile
 from Chat.models import Chat
-from IranianChat.utilities import convert_to_shamsi
 from .forms import FileUploadForm
 from .models import Message
 
@@ -72,12 +71,13 @@ def get_messages(request, chat_id):
     messages = Message.objects.filter(chat=chat_detail).select_related('sender__profile').values('id',
                                                                                                  'sender__username',
                                                                                                  'content', 'timestamp',
+                                                                                                 'solar_time_stamp',
                                                                                                  'file',
-                                                                                                 'sender__profile__profile_picture')
+                                                                                                 'sender__profile__profile_picture','sender__profile__first_name','sender__profile__last_name')
     messages_list = list(messages)
 
     for message in messages_list:
-        message['timestamp'] = convert_to_shamsi(str(message['timestamp']))
+        message['timestamp'] = message['solar_time_stamp']
         message['file_url'] = ''
         message['file_name'] = ''
         message['file_size'] = ''
