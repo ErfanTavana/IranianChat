@@ -38,6 +38,38 @@
     <!-- Persian date-time picker -->
     <link href="{% static 'assets/css/jquery.md.bootstrap.datetimepicker.style.css' %}" rel="stylesheet"/>
     <style>
+        .profile {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* اگر متن در جهت راست است */
+        .rtl .profile {
+            right: 0;
+            left: unset;
+        }
+
+        .rtl .mr-4 {
+            margin-right: 0 !important;
+            margin-left: 1.5rem !important;
+        }
+
+        .rtl-text {
+            direction: ltr;
+            text-align: left; /* متن را راست‌چین می‌کند */
+            unicode-bidi: embed; /* برای حفظ ترتیب نمایش صحیح متن */
+        }
+
+
         .replies .media .media-body .contact-name,
         .replies .media .media-body .contact-name h5,
         .replies .media .media-body .contact-name h6 {
@@ -3219,11 +3251,24 @@
                                     <div class="profile mr-4">
                                         <img alt="Avatar" class="bg-img" src="
 
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
                                         <div class="contact-name">
-                                            <h5>{{ message.sender.username }}</h5>
+                                            <h5>{{ message.sender.first_name }} {{ message.sender.last_name }}</h5>
                                             <h6>{{ message.timestamp|date:"H:i A" }}</h6>
                                             <ul class="msg-box">
                                                 {% if message.file %}
@@ -3277,14 +3322,15 @@
                                     const mediaDiv = $('<div>').addClass('media');
                                     const profileDiv = $('<div>').addClass('profile mr-4');
                                     const profileImg = $('<img>').addClass('bg-img').attr('alt', 'Avatar')
-                                        .attr('src', message.sender__profile__profile_picture__url || '{% static "assets/images/avtar/1.jpg" %}');
+                                        .attr('src', message.profile_picture_url || '{% static "assets/images/avtar/5.jpg" %}');
                                     profileDiv.append(profileImg);
                                     mediaDiv.append(profileDiv);
 
                                     const mediaBodyDiv = $('<div>').addClass('media-body');
                                     const contactNameDiv = $('<div>').addClass('contact-name');
                                     const h5Sender = $('<h5>').text(message.sender__username);
-                                    const h6Timestamp = $('<h6>').text(new Date(message.timestamp).toLocaleTimeString());
+                                    const h6Timestamp = $('<h6>').addClass('rtl-text').text(message.timestamp);
+
                                     contactNameDiv.append(h5Sender).append(h6Timestamp);
 
                                     const msgBoxUl = $('<ul>').addClass('msg-box');
