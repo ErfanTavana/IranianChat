@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.templatetags.static import static
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='کاربر')
@@ -12,10 +12,12 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True, verbose_name='بیوگرافی')
     birth_date = models.DateField(null=True, blank=True, verbose_name='تاریخ تولد')
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True,
-                                        verbose_name='عکس پروفایل')
+                                        verbose_name='عکس پروفایل', default='user.png')
     responsibility = models.CharField(max_length=100, blank=True, verbose_name='مسئولیت')
 
     def save(self, *args, **kwargs):
+        if not self.profile_picture:
+            self.profile_picture = 'user.png'
         self.user.first_name = self.first_name.strip()
         self.user.last_name = self.last_name.strip()
         self.user.save()

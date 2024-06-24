@@ -2,9 +2,9 @@ from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from django.shortcuts import render
-
 from Account.models import Profile
 from .forms import FileUploadForm
+from django.contrib.auth import logout
 
 
 def index(request):
@@ -151,3 +151,7 @@ def send_message(request):
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid data'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login_name')

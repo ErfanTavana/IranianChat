@@ -148,62 +148,11 @@
 <div class="chitchat-container sidebar-toggle">
     <nav class="main-nav on custom-scroll">
         <div class="logo-warpper">
-            <a href="messenger.html">
+            <a href="{% url 'index_name' %}">
                 <img alt="logo" src="{% static 'assets/images/logo/logo.png' %}"/>
             </a>
         </div>
         <div class="sidebar-main">
-            <ul class="sidebar-top">
-                <li>
-                    <a class="button-effect" data-intro="وضعیت ها را اینجا چک کنید" data-tippy-content="وضعیت"
-                       href="status">
-                        <div class="user-popup status one">
-                            <div>
-                                <img alt="Avatar" class="bg-img" src="{% static 'assets/images/avtar/2.jpg' %}"/>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <!--   <li class="small_device-only">
-              <a
-                  class="icon-btn btn-outline-light button-effect mainnav" href="#"><i
-                    class="ti-layout-grid2"></i></a>
-            </li> -->
-                <li>
-                    <a class="icon-btn btn-light button-effect" data-tippy-content="علاقه مندی" href="favourite">
-                        <i class="fa fa-star">
-                        </i>
-                    </a>
-                </li>
-                <li>
-                    <a class="icon-btn btn-light button-effect" data-tippy-content="اسناد" href="document">
-                        <i class="fa fa-file-text">
-                        </i>
-                    </a>
-                </li>
-                <li>
-                    <a class="icon-btn btn-light button-effect" data-tippy-content="مخاطبین" href="contact-list">
-                        <i class="fa fa-users">
-                        </i>
-                    </a>
-                </li>
-                <li>
-                    <div class="dot-btn dot-danger grow">
-                        <a class="icon-btn btn-light button-effect" data-tippy-content="اعلان ها" href="notification">
-                            <i class="fa fa-bell">
-                            </i>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <a class="icon-btn btn-light button-effect"
-                       data-intro="میتوانید تنظیمات را از اینجا بروزرسانی ککنید." data-tippy-content="تنظیمات"
-                       href="settings">
-                        <i class="fa fa-cog">
-                        </i>
-                    </a>
-                </li>
-            </ul>
             <ul class="sidebar-bottom">
                 <li>
                     <a class="icon-btn btn-light button-effect mode" data-intro="تغییر حالت"
@@ -213,7 +162,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="icon-btn btn-light" data-tippy-content=" خروج" href="login.html">
+                    <a class="icon-btn btn-light" data-tippy-content=" خروج" href="{% url 'logout_name' %}">
                         <i class="fa fa-power-off">
                         </i>
                     </a>
@@ -407,6 +356,7 @@
                                                         <div class="chat-box">
                                                             <div class="profile offline">
                                                                 <img alt="Avatar" class="bg-img" src="
+
 
 
 
@@ -3278,6 +3228,7 @@
 
 
 
+
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
@@ -4435,14 +4386,9 @@
                     </polygon>
                     </svg>
                     </a>
-                    <div class="contact-poll">
-                        <a class="icon-btn btn-outline-primary mr-4 outside" href="#">
-                            <i data-feather="paperclip">
-                            </i>
-                        </a>
-                    </div>
                     <input class="setemoj" id="setemoj" placeholder="پیام خود را اینجا بنویسید..." type="text"/>
-                    <button class="submit icon-btn btn-primary disabled" disabled="disabled" id="send-msg">
+                    <button class="submit icon-btn btn-primary disabled" disabled="disabled"
+                            id="send-msg">
                         <i data-feather="send">
                         </i>
                     </button>
@@ -6864,62 +6810,6 @@
                             </div>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </div>
-        <div class="app-list">
-            <ul class="app-list-ul custom-scroll text-center">
-                <li class="title apps-toggle">
-                    <i data-feather="grid">
-                    </i>
-                    <h5>
-                        برنامه ها
-                    </h5>
-                </li>
-                <li>
-                    <a class="icon-btn btn-outline-success btn-sm button-effect" href="files">
-                        <i data-feather="file">
-                        </i>
-                    </a>
-                    <h5>
-                        فایل
-                    </h5>
-                </li>
-                <li>
-                    <a class="icon-btn btn-outline-primary btn-sm button-effect" href="notes">
-                        <i data-feather="book">
-                        </i>
-                    </a>
-                    <h5>
-                        یادداشت
-                    </h5>
-                </li>
-                <li>
-                    <a class="icon-btn btn-outline-danger btn-sm button-effect" href="todo">
-                        <i data-feather="list">
-                        </i>
-                    </a>
-                    <h5>
-                        کار(TODO)
-                    </h5>
-                </li>
-                <li>
-                    <a class="icon-btn btn-outline-warning btn-sm button-effect" href="reminder">
-                        <i data-feather="clock">
-                        </i>
-                    </a>
-                    <h5>
-                        یادآور
-                    </h5>
-                </li>
-                <li class="close-app">
-                    <a class="icon-btn btn-danger" href="#" onclick="removedefault()">
-                        <i data-feather="x">
-                        </i>
-                    </a>
-                    <h5>
-                        بستن
-                    </h5>
                 </li>
             </ul>
         </div>

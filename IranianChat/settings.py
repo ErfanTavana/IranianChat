@@ -123,8 +123,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
 #
 # #Channels
 # ASGI_APPLICATION = 'your_project_name.asgi.application'

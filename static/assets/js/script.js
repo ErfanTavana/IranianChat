@@ -415,11 +415,8 @@
            <li class="rtl-setting icon-btn btn-primary">RTL</li>
            ==========================*/
   $(`<div class="sidebar-pannle-main"><ul>
-           <li class="cog-click icon-btn btn-success" ><i class="fa fa-cog"></i></li></ul></div>
             <section class="setting-sidebar"><div class="theme-title"><div class="media"><div><h2>
-            سفارشی ساز</h2><h4>سفارشی ساز آنی</h4></div><div class="media-body">
             <a class="icon-btn btn-outline-light button-effect pull-right cog-close" href="#">
-            <i class="fa fa-close"></i></a></div></div></div><div class="color-picker"><h5>انتخاب رنگ</h5>
             <ul class="colors"><li class="color active" data-attr="style"></li><li class="color1" data-attr="style1"></li>
             <li class="color2" data-attr="style2"></li><li class="color3" data-attr="style3"></li>
             <li class="color4" data-attr="style4"></li><li class="color5" data-attr="style5"></li>
@@ -874,19 +871,6 @@
   });
 
   // Outside click
-  $(document).on("click", function (e) {
-    var outside_space = $(".outside");
-    if (
-      !outside_space.is(e.target) &&
-      outside_space.has(e.target).length === 0
-    ) {
-      $(".sticker-contain").removeClass("open");
-      $(".emojis-contain").removeClass("open");
-      $(".toggle-emoji, .toggle-sticker").removeClass("active");
-      $(".contact-poll-content").css("display", "none");
-      $(".chat-frind-content").css("display", "none");
-    }
-  });
 
   $(".mode").on("click", function () {
     $(".mode i").toggleClass("fa-moon-o").toggleClass("fa-lightbulb-o");
