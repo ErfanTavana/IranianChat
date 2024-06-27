@@ -1,11 +1,21 @@
+import os
+
+from django.conf import settings
 from django.db.models import Q
+from django.http import FileResponse
 from django.http import HttpResponseForbidden
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
-from Account.models import Profile
-from .forms import FileUploadForm
-from django.contrib.auth import logout
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+
+from Account.models import Profile
+from Chat.models import Message  # Assuming Message model is in Chat.models
+from .forms import FileUploadForm
+from .models import Chat
+
 
 def index(request):
     if not request.user.is_authenticated:
@@ -79,14 +89,9 @@ def file_upload_view(request):
         form = FileUploadForm()
     return render(request, 'file_upload.html', {'form': form})
 
-
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.conf import settings
-
-
-@login_required
 def get_messages(request, chat_id):
+    if not request.user.is_authenticated:
+        return redirect('login_name')
     chat_detail = get_object_or_404(Chat, id=chat_id)
 
     # Check if the user is a participant in the chat
@@ -123,14 +128,10 @@ def get_messages(request, chat_id):
     return JsonResponse(messages_list, safe=False)
 
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import Message, Chat
-import json
-
 @csrf_exempt
-@login_required
 def send_message(request):
+    if not request.user.is_authenticated:
+        return redirect('login_name')
     if request.method == "POST":
         chat_id = request.POST.get('chat_id')
         sender_id = request.POST.get('sender_id')
@@ -158,6 +159,24 @@ def send_message(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid data'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-def logout_view(request):
-    logout(request)
-    return redirect('login_name')
+
+
+def serve_chat_file(request, file_name):
+    print("Request to serve file:", file_name)
+    if not request.user.is_authenticated:
+        return redirect('login_name')
+    # پیدا کردن پیام حاوی فایل
+    message = get_object_or_404(Message, file='chat_files/' + file_name)
+
+    # پیدا کردن چت مرتبط
+    chat = message.chat
+
+    # بررسی اینکه آیا کاربر یکی از شرکت‌کنندگان در چت است یا خیر
+    if request.user.id != chat.participant1.id and request.user.id != chat.participant2.id and not request.user.is_superuser:
+        return HttpResponseForbidden("You do not have permission to access this file.")
+
+    # پیدا کردن مسیر فایل
+    file_path = os.path.join(settings.MEDIA_ROOT, 'chat_files', file_name)
+
+    # بازگرداندن فایل به عنوان پاسخ
+    return FileResponse(open(file_path, 'rb'))

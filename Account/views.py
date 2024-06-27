@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout
 
 def login(request):
     if request.method == 'GET':
@@ -22,3 +23,6 @@ def login(request):
             })
     return render(request, 'login.html')
 
+def logout_view(request):
+    logout(request)
+    return redirect('login_name')
