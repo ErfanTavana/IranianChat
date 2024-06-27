@@ -363,6 +363,11 @@
 
 
 
+
+
+
+
+
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -3116,6 +3121,11 @@
 
 
 
+
+
+
+
+
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
@@ -3157,7 +3167,6 @@
                         {% endfor %}
                     </ul>
                 </div>
-
                 <script>
                     function fetchMessages() {
                         $.ajax({
@@ -3181,9 +3190,7 @@
                                     const mediaBodyDiv = $('<div>').addClass('media-body');
                                     const contactNameDiv = $('<div>').addClass('contact-name');
                                     const h5Sender = $('<h5>').text(message.sender__profile__first_name + " " + message.sender__profile__last_name);
-
                                     const h6Timestamp = $('<h6>').addClass('rtl-text').text(message.timestamp);
-
                                     contactNameDiv.append(h5Sender).append(h6Timestamp);
 
                                     const msgBoxUl = $('<ul>').addClass('msg-box');
@@ -3196,11 +3203,13 @@
                                         const fileName = $('<h6>').text(message.file_name.length > 15 ? message.file_name.slice(0, 15) + '...' : message.file_name);
                                         const fileSize = $('<h6>').text(message.file_size);
                                         detailsDiv.append(fileName).append(fileSize);
+
                                         const iconBtnsDiv = $('<div>').addClass('icon-btns');
                                         const downloadLink = $('<a>').addClass('icon-btn btn-outline-light').attr('href', message.file_url).attr('target', '_blank');
                                         const downloadIcon = $('<i>').attr('data-feather', 'download');
                                         downloadLink.append(downloadIcon);
                                         iconBtnsDiv.append(downloadLink);
+
                                         documentDiv.append(fileIcon).append(detailsDiv).append(iconBtnsDiv);
                                         fileMessageLi.append(documentDiv);
                                         msgBoxUl.append(fileMessageLi);
@@ -3219,6 +3228,9 @@
                                     messageElement.append(mediaDiv);
                                     messagesContainer.append(messageElement);
                                 });
+
+                                // Activate feather icons after adding new elements
+                                feather.replace();
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error fetching messages:', error);
@@ -3226,9 +3238,13 @@
                         });
                     }
 
+                    // Fetch messages once when the page loads
+                    fetchMessages();
+
                     // Fetch messages every 5 seconds
                     setInterval(fetchMessages, 5000);
                 </script>
+
             </div>
             <div class="messages custom-scroll" id="blank">
                 <div class="contact-details">
@@ -4283,7 +4299,7 @@
 
             <script>
                 document.getElementById('send-msg').addEventListener('click', function () {
-                    fetchMessages()
+
                     const messageContent = document.getElementById('setemoj').value;
                     const fileInput = document.getElementById('myfile');
                     const file = fileInput.files[0];
@@ -4324,7 +4340,7 @@
                                 if (response.status === 'success') {
                                     document.getElementById('setemoj').value = '';
                                     fileInput.value = '';
-                                    updateMessages();
+                                    fetchMessages();
                                     if (file) {
                                         modal.style.display = 'none';
                                     }
@@ -4338,6 +4354,7 @@
                                     modal.style.display = 'none'; // بستن مودال در صورت خطا
                                 }
                             }
+
                         });
 
                         xhr.addEventListener('error', function () {
@@ -4384,22 +4401,16 @@
                 // Close modal when clicking on <span> (x)
                 document.querySelector('.close').addEventListener('click', function () {
                     document.getElementById('uploadModal').style.display = 'none';
+                    fetchMessages();
                 });
 
-                function showAlert() {
-                    const alertBox = document.getElementById('success-alert');
-                    alertBox.style.display = 'block';
-                    setTimeout(function () {
-                        alertBox.style.display = 'none';
-                    }, 3000);
-                }
 
                 // Close alert when clicking on <span> (x)
                 document.querySelector('.closebtn').addEventListener('click', function () {
                     const alertBox = document.getElementById('success-alert');
                     alertBox.style.display = 'none';
+                    fetchMessages();
                 });
-                fetchMessages()
             </script>
 
 
