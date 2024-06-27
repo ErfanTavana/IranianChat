@@ -265,6 +265,12 @@
 
 
 
+
+
+
+
+
+
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -2970,137 +2976,6 @@
     <div class="chitchat-main small-sidebar" id="content">
         <div class="chat-content tabto active">
             <div class="messages custom-scroll active" id="chating">
-                <div class="contact-details">
-                    <div class="row">
-                        <form class="form-inline search-form">
-                            <div class="form-group">
-                                <input class="form-control-plaintext" placeholder="جستجو.." type="search"/>
-                                <div class="icon-close close-search">
-                                </div>
-                            </div>
-                        </form>
-                        <div class="col-7">
-                            <div class="media left">
-                                <div class="media-left mr-3">
-                                    <div class="profile online menu-trigger">
-                                        <img alt="Avatar" class="bg-img"
-                                             src="{% if request.user.id == chat_detail.participant1.id %} {{ chat_detail.participant2.profile.profile_picture.url }} {% else %} {{ chat_detail.participant1.profile_picture.url }} {% endif %}"/>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <h5>
-                                        {% if request.user.id == chat_detail.participant1.id %}
-                                            {{ chat_detail.participant2.first_name }}
-                                            {{ chat_detail.participant2.last_name }}
-                                        {% else %}
-                                            {{ chat_detail.participant1.first_name }}
-                                            {{ chat_detail.participant1.last_name }}
-
-                                        {% endif %}
-                                    </h5>
-                                    <div class="badge badge-success">
-                                        آنلاین
-                                    </div>
-                                </div>
-                                <div class="media-right">
-                                    <ul>
-                                        <li>
-                                            <a class="icon-btn btn-light button-effect mute" href="#">
-                                                <i class="fa fa-volume-up">
-                                                </i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="icon-btn btn-light search search-right" href="#">
-                                                <i data-feather="search">
-                                                </i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="icon-btn btn-light button-effect mobile-sidebar" href="#">
-                                                <i data-feather="chevron-left">
-                                                </i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <ul class="calls text-right">
-                                <li>
-                                    <a class="icon-btn btn-light button-effect" data-target="#audiocall"
-                                       data-tippy-content="تماس صوتی سریع" data-toggle="modal" href="#">
-                                        <i data-feather="phone">
-                                        </i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="icon-btn btn-light button-effect" data-target="#videocall"
-                                       data-tippy-content="تماس تصویری سریع" data-toggle="modal" href="#">
-                                        <i data-feather="video">
-                                        </i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="icon-btn btn-light button-effect apps-toggle"
-                                       data-tippy-content="تمام برنامه ها" href="#">
-                                        <i class="ti-layout-grid2">
-                                        </i>
-                                    </a>
-                                </li>
-                                <li class="chat-friend-toggle">
-                                    <a class="icon-btn btn-light bg-transparent button-effect outside"
-                                       data-tippy-content="عملیات سریع" href="#">
-                                        <i data-feather="more-vertical">
-                                        </i>
-                                    </a>
-                                    <div class="chat-frind-content">
-                                        <ul>
-                                            <li>
-                                                <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#">
-                                                    <i data-feather="user">
-                                                    </i>
-                                                </a>
-                                                <h5>
-                                                    پروفایل
-                                                </h5>
-                                            </li>
-                                            <li>
-                                                <a class="icon-btn btn-outline-success button-effect btn-sm" href="#">
-                                                    <i data-feather="plus-circle">
-                                                    </i>
-                                                </a>
-                                                <h5>
-                                                    بایگانی
-                                                </h5>
-                                            </li>
-                                            <li>
-                                                <a class="icon-btn btn-outline-danger button-effect btn-sm" href="#">
-                                                    <i data-feather="trash-2">
-                                                    </i>
-                                                </a>
-                                                <h5>
-                                                    حذف
-                                                </h5>
-                                            </li>
-                                            <li>
-                                                <a class="icon-btn btn-outline-light button-effect btn-sm" href="#">
-                                                    <i data-feather="slash">
-                                                    </i>
-                                                </a>
-                                                <h5>
-                                                    مسدود
-                                                </h5>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
                 <div class="contact-chat">
                     <ul class="chatappend" id="messages-container">
                         {% for message in messages %}
@@ -3109,6 +2984,12 @@
                                 <div class="media">
                                     <div class="profile mr-4">
                                         <img alt="Avatar" class="bg-img" src="
+
+
+
+
+
+
 
 
 
@@ -4267,34 +4148,26 @@
                 </div>
             </div>
             <div class="message-input">
+                <input hidden="hidden" type="file" id="myfile" name="myfile" class="hidden-file-input">
                 <div class="wrap emojis-main">
-                    <path clip-rule="evenodd"
-                          d="M699,693                        c0,175.649,0,351.351,0,527c36.996,0,74.004,0,111,0c18.058,0,40.812-2.485,57,1c11.332,0.333,22.668,0.667,34,1                        c7.664,2.148,20.769,14.091,25,20c8.857,12.368,6,41.794,6,62c0,49.329,0,98.672,0,148c175.649,0,351.351,0,527,0                        c0-252.975,0-506.025,0-759C1205.692,693,952.308,693,699,693z"
-                          fill="none" fill-rule="evenodd" stroke="#000000" stroke-miterlimit="10" stroke-width="60">
-                    </path>
-                    <path clip-rule="evenodd"
-                          d="M886,799c59.172-0.765,93.431,25.289,111,66c6.416,14.867,14.612,39.858,9,63                        c-2.391,9.857-5.076,20.138-9,29c-15.794,35.671-47.129,53.674-90,63c-20.979,4.563-42.463-4.543-55-10                        c-42.773-18.617-85.652-77.246-59-141c10.637-25.445,31.024-49,56-60c7.999-2.667,16.001-5.333,24-8                        C877.255,799.833,882.716,801.036,886,799z"
-                          fill-rule="evenodd">
-                    </path>
-                    <path clip-rule="evenodd"
-                          d="M1258,799c59.172-0.765,93.431,25.289,111,66c6.416,14.867,14.612,39.858,9,63                        c-2.391,9.857-5.076,20.138-9,29c-15.794,35.671-47.129,53.674-90,63c-20.979,4.563-42.463-4.543-55-10                        c-42.773-18.617-85.652-77.246-59-141c10.637-25.445,31.024-49,56-60c7.999-2.667,16.001-5.333,24-8                        C1249.255,799.833,1254.716,801.036,1258,799z"
-                          fill-rule="evenodd">
-                    </path>
-                    <path clip-rule="evenodd"
-                          d="M1345,1184c-0.723,18.71-11.658,29.82-20,41c-18.271,24.489-50.129,37.183-83,47                        c-7.333,1-14.667,2-22,3c-12.013,2.798-33.636,5.15-44,3c-11.332-0.333-22.668-0.667-34-1c-15.332-3-30.668-6-46-9                        c-44.066-14.426-80.944-31.937-110-61c-22.348-22.353-38.992-45.628-37-90c0.667,0,1.333,0,2,0c9.163,5.585,24.723,3.168,36,6                        c26.211,6.583,54.736,7.174,82,14c34.068,8.53,71.961,10.531,106,19c9.999,1.333,20.001,2.667,30,4c26.193,6.703,54.673,7.211,82,14                        C1304.894,1178.445,1325.573,1182.959,1345,1184z"
-                          fill-rule="evenodd">
-                    </path>
-                    <polygon clip-rule="evenodd" fill-rule="evenodd"
-                             points="668.333,1248.667 901.667,1482 941.667,1432 922.498,1237.846                         687,1210.667 ">
-                    </polygon>
-                    </svg>
+                    <a class="icon-btn btn-outline-primary mr-4 outside"
+                       onclick="document.getElementById('myfile').click();">
+                        <i class="fa fa-paperclip"></i>
                     </a>
-                    <input class="setemoj" id="setemoj" placeholder="پیام خود را اینجا بنویسید..." type="text"/>
-                    <button class="submit icon-btn btn-primary disabled" disabled="disabled"
-                            id="send-msg">
-                        <i data-feather="send">
-                        </i>
-                    </button>
+                    <script>
+                        document.getElementById('myfile').addEventListener('change', function () {
+                            const file = this.files[0];
+                            if (file) {
+                                console.log('File selected:', file.name);
+                            }
+                        });
+                    </script>
+                    <div class="contact-poll">
+                    </div>
+                    <input class="setemoj" id="setemoj" type="text" placeholder="پیام خود را اینجا بنویسید..."/>
+                    <button class="submit icon-btn btn-primary disabled" id="send-msg" disabled="disabled"><i
+                            data-feather="send">
+                    </i></button>
                 </div>
             </div>
             <script>
@@ -4356,239 +4229,6 @@
                 }
             </script>
         </div>
-        <div class="call-content tabto">
-            <a class="icon-btn btn-outline-primary button-effect mobile-back mb-3" href="#">
-                <i class="ti-angle-right">
-                </i>
-            </a>
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="user-profile mb-3">
-                        <div class="user-content">
-                            <img alt="user-img" class="img-fluid" src="{% static 'assets/images/contact/2.jpg' %}"/>
-                            <h3>
-                                سعید مظفری
-                            </h3>
-                            <h4 class="mt-2 ltr">
-                                +98 915 555 5555
-                            </h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-twitch">
-                                    </i>
-                                    پیام
-                                </li>
-                                <li>
-                                    <i class="fa fa-phone" data-target="#audiocall" data-toggle="modal">
-                                    </i>
-                                    تماس تصویری
-                                </li>
-                                <li>
-                                    <i class="fa fa-video-camera" data-target="#videocall" data-toggle="modal">
-                                    </i>
-                                    تماس تصویری
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="user-profile">
-                        <div class="document">
-                            <div class="filter-block">
-                                <div class="collapse-block open">
-                                    <h5 class="block-title">
-                                        اسناد ارسال شده
-                                        <label class="badge badge-success sm ml-2">
-                                            3
-                                        </label>
-                                    </h5>
-                                    <div class="block-content">
-                                        <ul class="document-list">
-                                            <li>
-                                                <i class="ti-folder font-danger">
-                                                </i>
-                                                <h5>
-                                                    Simple_practice_project-zip
-                                                </h5>
-                                            </li>
-                                            <li>
-                                                <i class="ti-write font-success">
-                                                </i>
-                                                <h5>
-                                                    Word_Map-jpg
-                                                </h5>
-                                            </li>
-                                            <li>
-                                                <i class="ti-zip font-primary">
-                                                </i>
-                                                <h5>
-                                                    Latest_Design_portfolio.pdf
-                                                </h5>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                    <div class="call-log-main custom-scroll">
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-incoming">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس های ورودی
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    15 دقیقه پیش 5:10  (1401/01/01)
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-incoming">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس خروجی
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    30 دقیقه پیش 10:30  (1401/01/05)
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-missed">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس های از دست رفته
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    1 دقیقه پیش 8:30   (1401/01/02)
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-missed">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس های از دست رفته
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    10 دقیقه پیش 9:10   (1401/01/04)
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-missed">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس های از دست رفته
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    35 دقیقه پیش 9:10   (1401/01/06)
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-missed">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس های از دست رفته
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    80 دقیقه پیش 12:05   (1401/01/06)
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-incoming">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس های ورودی
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    15 دقیقه پیش 15:20   (1401/01/06)
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="coll-log-group">
-                            <div class="log-content-left">
-                                <div class="media">
-                                    <i data-feather="phone-incoming">
-                                    </i>
-                                    <div class="media-body">
-                                        <h5>
-                                            تماس های ورودی
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="log-content-right">
-                                <h6>
-                                    10 دقیقه پیش 20m 26s   1401/01/06
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="call-log-clear">
-                        <i class="ti-trash font-danger">
-                        </i>
-                        <span class="font-danger">
-         حذف تاریخچه
-                تماس
-        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="contact-content tabto">
             <div class="contact-sub-content">
                 <a class="icon-btn btn-outline-primary button-effect mobile-back mb-3" href="#">
@@ -4596,180 +4236,6 @@
                     </i>
                 </a>
                 <div class="row">
-                    <div class="col-sm-5">
-                        <div class="user-profile">
-                            <div class="user-content">
-                                <img alt="user-img" class="img-fluid bg-icon"
-                                     src="{% static 'assets/images/contact/2.jpg' %}"/>
-                                <h3>
-                                    سعید مظفری
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <i class="fa fa-twitch">
-                                        </i>
-                                        پیام
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-phone">
-                                        </i>
-                                        تماس صوتی
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-video-camera">
-                                        </i>
-                                        تماس تصویری
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="personal-info-group">
-                            <div class="social-info-group">
-                                <ul class="integratin mt-0">
-                                    <li>
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <a class="fb" href="https://www.facebook.com/login" target="_blank">
-                                                    <i class="fa fa-facebook">
-                                                    </i>
-                                                    <h5>
-                                                        فیسبوک
-                                                    </h5>
-                                                </a>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="profile bg-size">
-                                                    <img alt="Avatar" class="bg-img"
-                                                         src="{% static 'assets/images/contact/1.jpg' %}"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <a class="twi" href="https://twitter.com/login" target="_blank">
-                                                    <i class="fa fa-twitter">
-                                                    </i>
-                                                    <h5>
-                                                        توییتر
-                                                    </h5>
-                                                </a>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="profile bg-size">
-                                                    <img alt="Avatar" class="bg-img"
-                                                         src="{% static 'assets/images/contact/3.jpg' %}"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <a class="ggl"
-                                                   href="https://accounts.google.com/signin/v2/identifier?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&lt;mpl=default&lt;mplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin"
-                                                   target="_blank">
-                                                    <i class="fa fa-google">
-                                                    </i>
-                                                    <h5>
-                                                        گوگل
-                                                    </h5>
-                                                </a>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="profile bg-size">
-                                                    <img alt="Avatar" class="bg-img"
-                                                         src="{% static 'assets/images/contact/2.jpg' %}"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="personal-info-group">
-                            <h3>
-                                جزئیات تماس
-                            </h3>
-                            <ul class="basic-info">
-                                <li>
-                                    <h5>
-                                        نام
-                                    </h5>
-                                    <h5 class="details">
-                                        سعید
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5>
-                                        جنسیت
-                                    </h5>
-                                    <h5 class="details">
-                                        آقا
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5>
-                                        تولد
-                                    </h5>
-                                    <h5 class="details">
-                                        9 فروردین 1401
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5>
-                                        کتاب مورد علاقه
-                                    </h5>
-                                    <h5 class="details">
-                                        شیمی عالی
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5>
-                                        شهر
-                                    </h5>
-                                    <h5 class="details">
-                                        مشهد
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5>
-                                        شماره موبایل
-                                    </h5>
-                                    <h5 class="details ltr">
-                                        +98 915 555 5555
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5>
-                                        ایمیل
-                                    </h5>
-                                    <h5 class="details">
-                                        email@test.com
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5>
-                                        وب سایت
-                                    </h5>
-                                    <h5 class="details">
-                                        www.test.com
-                                    </h5>
-                                </li>
-                                <li>
-                                    <h5 class="m-0">
-                                        علاقه مندی ها
-                                    </h5>
-                                    <h5 class="details">
-                                        عکاسی
-                                    </h5>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
