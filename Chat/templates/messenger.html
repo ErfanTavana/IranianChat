@@ -134,6 +134,87 @@
             justify-content: center;
             align-items: center;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%; /* کوچکتر کردن سایز مودال */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Progress Bar Styles */
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 20px;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background-color: #87CEEB; /* آبی آسمانی */
+            transition: width 0.2s;
+        }
+
+        /* Alert Styles */
+        .alert {
+            display: none;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1001;
+            border-radius: 5px;
+        }
+
+        .alert .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .alert .closebtn:hover {
+            color: black;
+        }
+
     </style>
 </head>
 <body class="rtl sidebar-active">
@@ -259,6 +340,11 @@
                                                         <div class="chat-box">
                                                             <div class="profile offline">
                                                                 <img alt="Avatar" class="bg-img" src="
+
+
+
+
+
 
 
 
@@ -3013,6 +3099,11 @@
 
 
 
+
+
+
+
+
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
@@ -4154,81 +4245,139 @@
                        onclick="document.getElementById('myfile').click();">
                         <i class="fa fa-paperclip"></i>
                     </a>
-                    <script>
-                        document.getElementById('myfile').addEventListener('change', function () {
-                            const file = this.files[0];
-                            if (file) {
-                                console.log('File selected:', file.name);
-                            }
-                        });
-                    </script>
-                    <div class="contact-poll">
-                    </div>
+                    <div class="contact-poll"></div>
                     <input class="setemoj" id="setemoj" type="text" placeholder="پیام خود را اینجا بنویسید..."/>
-                    <button class="submit icon-btn btn-primary disabled" id="send-msg" disabled="disabled"><i
-                            data-feather="send">
-                    </i></button>
+                    <button class="submit icon-btn btn-primary" id="send-msg"><i data-feather="send"></i></button>
                 </div>
             </div>
-            <script>
-                document.getElementById('send-msg').addEventListener('click', function () {
-                    const messageContent = document.getElementById('setemoj').value;
-// URL مورد استفاده
-                    const url = window.location.href;
 
-// Regex برای استخراج چت ایدی
-                    const regex = /\/chat_details\/(\d+)/;
+            <!-- Modal for Upload Progress -->
+            <div id="uploadModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>در حال آپلود</h2>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <p>درصد آپلود: <span id="upload-percentage">0%</span></p>
+                    <p>سرعت آپلود: <span id="upload-speed">0 KB/s</span></p>
+                </div>
+            </div>
 
-// استخراج چت ایدی از URL
-                    const match = url.match(regex);
-                    const chatId = match ? match[1] : null;
+            <!-- Alert for Success -->
+            <div id="success-alert" class="alert">
+                <span class="closebtn">&times;</span>
+                پیام با موفقیت ارسال شد!
+            </div>
 
-// نمایش چت ایدی استخراج شده
-                    console.log('chatId:', chatId); // Output: chatId: 3
-                    const senderId = 1; // باید به صورت دینامیک مقداردهی شود
+        </div>
+        <script>
+            document.getElementById('send-msg').addEventListener('click', function () {
+                const messageContent = document.getElementById('setemoj').value;
+                const fileInput = document.getElementById('myfile');
+                const file = fileInput.files[0];
 
-                    if (messageContent.trim() !== '') {
-                        fetch('/send_message/', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRFToken': getCookie('csrftoken')
-                            },
-                            body: JSON.stringify({
-                                chat_id: chatId,
-                                sender_id: senderId,
-                                content: messageContent
-                            })
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.status === 'success') {
-                                    document.getElementById('setemoj').value = '';
-                                    fetchMessages();
-                                } else {
-                                    console.error(data.message);
-                                }
-                            })
-                            .catch(error => console.error('Error:', error));
+                const url = window.location.href;
+                const regex = /\/chat_details\/(\d+)/;
+                const match = url.match(regex);
+                const chatId = match ? match[1] : null;
+                const senderId = {{ request.user.id }}; // استفاده از آیدی کاربر به صورت دینامیک
+
+                if (messageContent.trim() !== '' || file) {
+                    const formData = new FormData();
+                    formData.append('chat_id', chatId);
+                    formData.append('sender_id', senderId);
+                    formData.append('content', messageContent);
+                    if (file) {
+                        formData.append('file', file);
                     }
-                });
 
-                function getCookie(name) {
-                    let cookieValue = null;
-                    if (document.cookie && document.cookie !== '') {
-                        const cookies = document.cookie.split(';');
-                        for (let i = 0; i < cookies.length; i++) {
-                            const cookie = cookies[i].trim();
-                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                break;
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/send_message/', true);
+                    xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+
+                    const modal = document.getElementById('uploadModal');
+                    const progressFill = document.getElementById('progress-fill');
+                    const progressPercentage = document.getElementById('upload-percentage');
+                    const uploadSpeed = document.getElementById('upload-speed');
+                    let startTime = Date.now();
+
+                    modal.style.display = 'block';
+
+                    xhr.upload.addEventListener('progress', function (e) {
+                        if (e.lengthComputable) {
+                            const percentComplete = (e.loaded / e.total) * 100;
+                            const elapsedTime = (Date.now() - startTime) / 1000; // زمان گذشته در ثانیه
+                            const speed = (e.loaded / 1024) / elapsedTime; // سرعت آپلود به KB/s
+
+                            progressFill.style.width = percentComplete + '%';
+                            progressPercentage.textContent = percentComplete.toFixed(2) + '%';
+                            uploadSpeed.textContent = speed.toFixed(2) + ' KB/s';
+                        }
+                    });
+
+                    xhr.addEventListener('load', function () {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            if (response.status === 'success') {
+                                document.getElementById('setemoj').value = '';
+                                fileInput.value = '';
+                                updateMessages();
+                                modal.style.display = 'none';
+                                showAlert();
+                            } else {
+                                console.error(response.message);
                             }
+                        } else {
+                            console.error('Error:', xhr.statusText);
+                            modal.style.display = 'none'; // بستن مودال در صورت خطا
+                        }
+                    });
+
+                    xhr.addEventListener('error', function () {
+                        console.error('Error:', xhr.statusText);
+                        modal.style.display = 'none'; // بستن مودال در صورت خطا
+                    });
+
+                    xhr.send(formData);
+                }
+            });
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
                         }
                     }
-                    return cookieValue;
                 }
-            </script>
-        </div>
+                return cookieValue;
+            }
+
+            // Close modal when clicking on <span> (x)
+            document.querySelector('.close').addEventListener('click', function () {
+                document.getElementById('uploadModal').style.display = 'none';
+            });
+
+            function showAlert() {
+                const alertBox = document.getElementById('success-alert');
+                alertBox.style.display = 'block';
+                setTimeout(function () {
+                    alertBox.style.display = 'none';
+                }, 3000);
+            }
+
+            // Close alert when clicking on <span> (x)
+            document.querySelector('.closebtn').addEventListener('click', function () {
+                const alertBox = document.getElementById('success-alert');
+                alertBox.style.display = 'none';
+            });
+
+        </script>
         <div class="contact-content tabto">
             <div class="contact-sub-content">
                 <a class="icon-btn btn-outline-primary button-effect mobile-back mb-3" href="#">

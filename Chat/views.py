@@ -5,7 +5,7 @@ from django.shortcuts import render
 from Account.models import Profile
 from .forms import FileUploadForm
 from django.contrib.auth import logout
-
+from django.utils import timezone
 
 def index(request):
     if not request.user.is_authenticated:
@@ -128,25 +128,31 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Message, Chat
 import json
 
-
 @csrf_exempt
+@login_required
 def send_message(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-        chat_id = data.get('chat_id')
-        sender_id = data.get('sender_id')
-        content = data.get('content')
+        chat_id = request.POST.get('chat_id')
+        sender_id = request.POST.get('sender_id')
+        content = request.POST.get('content')
+        file = request.FILES.get('file')
+
         try:
             chat = Chat.objects.get(id=chat_id)
-        except:
-            return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+        except Chat.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Invalid chat ID'})
 
-        if chat_id and content:
-            message = Message.objects.create(
+        if chat_id and (content or file):
+            message = Message(
                 chat=chat,
-                sender_id=request.user.id,
+                sender_id=sender_id,
                 content=content,
+                timestamp=timezone.now()
             )
+            if file:
+                message.file = file
+            message.save()
+
             return JsonResponse({'status': 'success', 'message': 'Message sent successfully'})
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid data'})
