@@ -4263,152 +4263,167 @@
                     </p>
                 </div>
             </div>
-            <div class="message-input">
-                <input hidden="hidden" type="file" id="myfile" name="myfile" class="hidden-file-input">
-                <div class="wrap emojis-main">
-                    <a class="icon-btn btn-outline-primary mr-4 outside"
-                       onclick="document.getElementById('myfile').click();">
-                        <i class="fa fa-paperclip"></i>
-                    </a>
-                    <div class="contact-poll"></div>
-                    <input class="setemoj" id="setemoj" type="text" placeholder="پیام خود را اینجا بنویسید..."/>
-                    <button class="submit icon-btn btn-primary" id="send-msg"><i data-feather="send"></i></button>
-                </div>
-            </div>
-            <!-- Modal for Upload Progress -->
-            <div id="uploadModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>در حال آپلود</h2>
-                    <div class="progress-bar">
-                        <div id="progress-fill" class="progress-fill"></div>
-                    </div>
-                    <p>درصد آپلود: <span id="upload-percentage">0%</span></p>
-                    <p>سرعت آپلود: <span id="upload-speed">0 KB/s</span></p>
-                </div>
-            </div>
+<div class="message-input">
+    <input hidden="hidden" type="file" id="myfile" name="myfile" class="hidden-file-input">
+    <div class="wrap emojis-main">
+        <a class="icon-btn btn-outline-primary mr-4 outside" onclick="document.getElementById('myfile').click();">
+            <i class="fa fa-paperclip"></i>
+        </a>
+        <div class="contact-poll"></div>
+        <input class="setemoj" id="setemoj" type="text" placeholder="پیام خود را اینجا بنویسید..."/>
+        <button class="submit icon-btn btn-primary" id="send-msg"><i data-feather="send"></i></button>
+    </div>
+</div>
+<!-- Modal for Upload Progress -->
+<div id="uploadModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>در حال آپلود</h2>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <p>درصد آپلود: <span id="upload-percentage">0%</span></p>
+        <p>سرعت آپلود: <span id="upload-speed">0 KB/s</span></p>
+    </div>
+</div>
 
-            <!-- Alert for Success -->
-            <div id="success-alert" class="alert">
-                <span class="closebtn">&times;</span>
-                پیام با موفقیت ارسال شد!
-            </div>
+<!-- Alert for Success -->
+<div id="success-alert" class="alert">
+    <span class="closebtn">&times;</span>
+    پیام با موفقیت ارسال شد!
+</div>
 
-            <script>
-                document.getElementById('send-msg').addEventListener('click', function () {
+<script>
+    document.getElementById('send-msg').addEventListener('click', sendMessage);
 
-                    const messageContent = document.getElementById('setemoj').value;
-                    const fileInput = document.getElementById('myfile');
-                    const file = fileInput.files[0];
+    document.getElementById('setemoj').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+            e.preventDefault(); // جلوگیری از انجام عملیات پیش‌فرض برای کلید اینتر
+        }
+    });
 
-                    const url = window.location.href;
-                    const regex = /\/chat_details\/(\d+)/;
-                    const match = url.match(regex);
-                    const chatId = match ? match[1] : null;
-                    const senderId = {{ request.user.id }}; // استفاده از آیدی کاربر به صورت دینامیک
+    function sendMessage() {
+        const messageContent = document.getElementById('setemoj').value;
+        const fileInput = document.getElementById('myfile');
+        const file = fileInput.files[0];
 
-                    if (messageContent.trim() !== '' || file) {
-                        const formData = new FormData();
-                        formData.append('chat_id', chatId);
-                        formData.append('sender_id', senderId);
-                        formData.append('content', messageContent);
+        const url = window.location.href;
+        const regex = /\/chat_details\/(\d+)/;
+        const match = url.match(regex);
+        const chatId = match ? match[1] : null;
+        const senderId = {{ request.user.id }}; // استفاده از آیدی کاربر به صورت دینامیک
+
+        if (messageContent.trim() !== '' || file) {
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('sender_id', senderId);
+            formData.append('content', messageContent);
+            if (file) {
+                formData.append('file', file);
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/send_message/', true);
+            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+
+            const modal = document.getElementById('uploadModal');
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercentage = document.getElementById('upload-percentage');
+            const uploadSpeed = document.getElementById('upload-speed');
+            let startTime = Date.now();
+
+            // نمایش مودال تنها در صورت وجود فایل
+            if (file) {
+                modal.style.display = 'block';
+            }
+
+            xhr.addEventListener('load', function () {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        document.getElementById('setemoj').value = '';
+                        fileInput.value = '';
+                        fetchMessages();
                         if (file) {
-                            formData.append('file', file);
+                            modal.style.display = 'none';
                         }
-
-                        const xhr = new XMLHttpRequest();
-                        xhr.open('POST', '/send_message/', true);
-                        xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-
-                        const modal = document.getElementById('uploadModal');
-                        const progressFill = document.getElementById('progress-fill');
-                        const progressPercentage = document.getElementById('upload-percentage');
-                        const uploadSpeed = document.getElementById('upload-speed');
-                        let startTime = Date.now();
-
-                        // نمایش مودال تنها در صورت وجود فایل
-                        if (file) {
-                            modal.style.display = 'block';
-                        }
-
-                        xhr.addEventListener('load', function () {
-                            if (xhr.status === 200) {
-                                const response = JSON.parse(xhr.responseText);
-                                if (response.status === 'success') {
-                                    document.getElementById('setemoj').value = '';
-                                    fileInput.value = '';
-                                    fetchMessages();
-                                    if (file) {
-                                        modal.style.display = 'none';
-                                    }
-                                    showAlert();
-                                } else {
-                                    console.error(response.message);
-                                }
-                            } else {
-                                console.error('Error:', xhr.statusText);
-                                if (file) {
-                                    modal.style.display = 'none'; // بستن مودال در صورت خطا
-                                }
-                            }
-
-                        });
-
-                        xhr.addEventListener('error', function () {
-                            console.error('Error:', xhr.statusText);
-                            if (file) {
-                                modal.style.display = 'none'; // بستن مودال در صورت خطا
-                            }
-                        });
-
-                        // اضافه کردن رویداد progress تنها در صورت وجود فایل
-                        if (file) {
-                            xhr.upload.addEventListener('progress', function (e) {
-                                if (e.lengthComputable) {
-                                    const percentComplete = (e.loaded / e.total) * 100;
-                                    const elapsedTime = (Date.now() - startTime) / 1000; // زمان گذشته در ثانیه
-                                    const speed = (e.loaded / 1024) / elapsedTime; // سرعت آپلود به KB/s
-
-                                    progressFill.style.width = percentComplete + '%';
-                                    progressPercentage.textContent = Math.round(percentComplete) + '%'; // استفاده از Math.round برای گرد کردن
-                                    uploadSpeed.textContent = speed.toFixed(2) + ' KB/s';
-                                }
-                            });
-                        }
-
-                        xhr.send(formData);
+                        showAlert();
+                    } else {
+                        console.error(response.message);
                     }
-                });
-
-                function getCookie(name) {
-                    let cookieValue = null;
-                    if (document.cookie && document.cookie !== '') {
-                        const cookies = document.cookie.split(';');
-                        for (let i = 0; i < cookies.length; i++) {
-                            const cookie = cookies[i].trim();
-                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                break;
-                            }
-                        }
+                } else {
+                    console.error('Error:', xhr.statusText);
+                    if (file) {
+                        modal.style.display = 'none'; // بستن مودال در صورت خطا
                     }
-                    return cookieValue;
                 }
 
-                // Close modal when clicking on <span> (x)
-                document.querySelector('.close').addEventListener('click', function () {
-                    document.getElementById('uploadModal').style.display = 'none';
-                    fetchMessages();
-                });
+            });
 
+            xhr.addEventListener('error', function () {
+                console.error('Error:', xhr.statusText);
+                if (file) {
+                    modal.style.display = 'none'; // بستن مودال در صورت خطا
+                }
+            });
 
-                // Close alert when clicking on <span> (x)
-                document.querySelector('.closebtn').addEventListener('click', function () {
-                    const alertBox = document.getElementById('success-alert');
-                    alertBox.style.display = 'none';
-                    fetchMessages();
+            // اضافه کردن رویداد progress تنها در صورت وجود فایل
+            if (file) {
+                xhr.upload.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        const percentComplete = (e.loaded / e.total) * 100;
+                        const elapsedTime = (Date.now() - startTime) / 1000; // زمان گذشته در ثانیه
+                        const speed = (e.loaded / 1024) / elapsedTime; // سرعت آپلود به KB/s
+
+                        progressFill.style.width = percentComplete + '%';
+                        progressPercentage.textContent = Math.round(percentComplete) + '%'; // استفاده از Math.round برای گرد کردن
+                        uploadSpeed.textContent = speed.toFixed(2) + ' KB/s';
+                    }
                 });
-            </script>
+            }
+
+            xhr.send(formData);
+        }
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Close modal when clicking on <span> (x)
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('uploadModal').style.display = 'none';
+        fetchMessages();
+    });
+
+    // Close alert when clicking on <span> (x)
+    document.querySelector('.closebtn').addEventListener('click', function () {
+        const alertBox = document.getElementById('success-alert');
+        alertBox.style.display = 'none';
+        fetchMessages();
+    });
+
+    function showAlert() {
+        const alertBox = document.getElementById('success-alert');
+        alertBox.style.display = 'block';
+        setTimeout(function () {
+            alertBox.style.display = 'none';
+        }, 3000);
+    }
+</script>
+
 
 
             <div class="contact-content tabto">
