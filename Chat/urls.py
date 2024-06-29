@@ -1,10 +1,12 @@
 from django.urls import path
 
-from .views import index, chat_details, file_upload_view, get_messages, send_message
+from .views import index, chat_details, file_upload_view, get_messages, serve_chat_file, send_message
 
 # urls.py
 
 urlpatterns = [
+    path('media/chat_files/<str:file_name>/', serve_chat_file, name='serve_chat_file'),
+
     path('', index, name='index_name'),
     path('chat_details/<int:id>', chat_details, name='chat_details_name'),
     path('upload/', file_upload_view, name='file_upload'),
