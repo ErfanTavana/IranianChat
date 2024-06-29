@@ -107,8 +107,8 @@
 </head>
 <body class="rtl sidebar-active">
 <div class="chitchat-loader">
-    <div>
-        <img alt="" src="{% static 'assets/images/logo/logo_big.png' %}"/>
+    <div style="text-align: center;">
+        <img alt="" src="{% static 'assets/images/logo/logo.svg' %}"/>
         <h3>
             اپلیکیشنی سریع و ایمن برای پیام رسانی ..!
         </h3>
@@ -116,9 +116,9 @@
 </div>
 <div class="chitchat-container sidebar-toggle">
     <nav class="main-nav on custom-scroll">
-        <div class="logo-warpper">
+        <div class="logo-wrapper" style="text-align: center;">
             <a href="{% url 'index_name' %}">
-                <img alt="logo" src="{% static 'assets/images/logo/logo.png' %}"/>
+                <img lang="en" alt="logo" src="{% static 'assets/images/logo/logo.png' %}"/>
             </a>
         </div>
         <div class="sidebar-main">
@@ -226,6 +226,8 @@
                                                         <div class="chat-box">
                                                             <div class="profile offline">
                                                                 <img alt="Avatar" class="bg-img" src="
+
+
 
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
