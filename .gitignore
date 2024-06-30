@@ -1,2 +1,5 @@
 /media
-* .pyc
+*.spec
+*.log
+*.pot
+*.pyc
