@@ -74,21 +74,6 @@ def chat_details(request, id):
     return render(request, 'messenger.html',
                   {'chat_detail': chat_detail, 'chats': chats, 'profiles': profiles, 'messages': messages})
 
-
-def file_upload_view(request):
-    if request.method == 'POST':
-        form = FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.sender = request.user
-            message.save()
-            return JsonResponse({'status': 'success'})
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors})
-    else:
-        form = FileUploadForm()
-    return render(request, 'file_upload.html', {'form': form})
-
 def get_messages(request, chat_id):
     if not request.user.is_authenticated:
         return redirect('login_name')
