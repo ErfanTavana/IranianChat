@@ -13,7 +13,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from Account.models import Profile
 from Chat.models import Message  # Assuming Message model is in Chat.models
-from .forms import FileUploadForm
 from .models import Chat
 
 
@@ -69,10 +68,11 @@ def chat_details(request, id):
         return HttpResponseForbidden("You do not have access to view this chat.")
 
     profiles = Profile.objects.all()  # or any other logic to get profiles
-    messages = Message.objects.filter(chat=chat_detail)
+    messages = Message.objects.filter(chat=chat_detail).order_by('-timestamp')
 
     return render(request, 'messenger.html',
                   {'chat_detail': chat_detail, 'chats': chats, 'profiles': profiles, 'messages': messages})
+
 
 def get_messages(request, chat_id):
     if not request.user.is_authenticated:
@@ -90,7 +90,8 @@ def get_messages(request, chat_id):
                                                                                                  'file',
                                                                                                  'sender__profile__profile_picture',
                                                                                                  'sender__profile__first_name',
-                                                                                                 'sender__profile__last_name')
+                                                                                                 'sender__profile__last_name').order_by(
+        '-timestamp')
     messages_list = list(messages)
 
     for message in messages_list:
@@ -143,7 +144,6 @@ def send_message(request):
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid data'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
-
 
 
 def serve_chat_file(request, file_name):
