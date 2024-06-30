@@ -394,7 +394,6 @@
 
 
 
-
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -3170,7 +3169,6 @@
 
 
 
-
                                                 {% if message.sender.profile.profile_picture.url %}{{ message.sender.profile.profile_picture.url }}{% else %}{% static 'path/to/default/avatar.jpg' %}{% endif %}">
                                     </div>
                                     <div class="media-body">
@@ -4308,7 +4306,7 @@
                 </div>
             </div>
             <div class="message-input">
-                <input hidden="hidden" type="file" id="myfile" name="myfile" class="hidden-file-input" multiple>
+                <input hidden="hidden" type="file" id="myfile" name="myfile" class="hidden-file-input">
                 <div class="wrap emojis-main">
                     <a class="icon-btn btn-outline-primary mr-4 outside"
                        onclick="document.getElementById('myfile').click();">
@@ -4338,7 +4336,6 @@
                 پیام با موفقیت ارسال شد!
             </div>
 
-
             <script>
                 document.getElementById('send-msg').addEventListener('click', sendMessage);
 
@@ -4352,7 +4349,7 @@
                 function sendMessage() {
                     const messageContent = document.getElementById('setemoj').value;
                     const fileInput = document.getElementById('myfile');
-                    const files = fileInput.files;
+                    const file = fileInput.files[0];
 
                     const url = window.location.href;
                     const regex = /\/chat_details\/(\d+)/;
@@ -4360,112 +4357,88 @@
                     const chatId = match ? match[1] : null;
                     const senderId = {{ request.user.id }}; // استفاده از آیدی کاربر به صورت دینامیک
 
-                    if (messageContent.trim() !== '' || files.length > 0) {
+                    if (messageContent.trim() !== '' || file) {
                         const formData = new FormData();
                         formData.append('chat_id', chatId);
                         formData.append('sender_id', senderId);
                         formData.append('content', messageContent);
+                        if (file) {
+                            formData.append('file', file);
+                        }
+
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/send_message/', true);
+                        xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
 
                         const modal = document.getElementById('uploadModal');
                         const progressFill = document.getElementById('progress-fill');
                         const progressPercentage = document.getElementById('upload-percentage');
                         const uploadSpeed = document.getElementById('upload-speed');
-
-                        let totalBytes = 0;
-                        let uploadedBytes = 0;
-                        let totalFiles = files.length;
-                        let completedFiles = 0;
                         let startTime = Date.now();
 
-                        const uploadPromises = [];
-
                         // نمایش مودال تنها در صورت وجود فایل
-                        if (files.length > 0) {
+                        if (file) {
                             modal.style.display = 'block';
                         }
 
-                        for (let i = 0; i < files.length; i++) {
-                            const file = files[i];
-                            totalBytes += file.size;
+                        xhr.addEventListener('load', function () {
+                            if (xhr.status === 200) {
+                                const response = JSON.parse(xhr.responseText);
+                                if (response.status === 'success') {
+                                    document.getElementById('setemoj').value = '';
+                                    fileInput.value = '';
+                                    fetchMessages();
+                                    if (file) {
+                                        modal.style.display = 'none';
+                                    }
+                                    showAlert();
+                                } else {
+                                    console.error(response.message);
+                                }
+                            } else {
+                                console.error('Error:', xhr.statusText);
+                                if (file) {
+                                    modal.style.display = 'none'; // بستن مودال در صورت خطا
+                                }
+                            }
 
-                            const fileFormData = new FormData();
-                            fileFormData.append('chat_id', chatId);
-                            fileFormData.append('sender_id', senderId);
-                            fileFormData.append('file', file);
+                        });
 
-                            const xhr = new XMLHttpRequest();
-                            xhr.open('POST', '/send_message/', true);
-                            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+                        xhr.addEventListener('error', function () {
+                            console.error('Error:', xhr.statusText);
+                            if (file) {
+                                modal.style.display = 'none'; // بستن مودال در صورت خطا
+                            }
+                        });
 
-                            const promise = new Promise((resolve, reject) => {
-                                xhr.addEventListener('load', function () {
-                                    if (xhr.status === 200) {
-                                        completedFiles++;
-                                        const response = JSON.parse(xhr.responseText);
-                                        if (response.status === 'success') {
-                                            if (completedFiles === totalFiles) {
-                                                document.getElementById('setemoj').value = '';
-                                                fileInput.value = '';
-                                                fetchMessages();
-                                                modal.style.display = 'none';
-                                                showAlert();
-                                            }
-                                            resolve();
-                                        } else {
-                                            console.error(response.message);
-                                            reject();
-                                        }
+// اضافه کردن رویداد progress تنها در صورت وجود فایل
+                        if (file) {
+                            xhr.upload.addEventListener('progress', function (e) {
+                                if (e.lengthComputable) {
+                                    const percentComplete = (e.loaded / e.total) * 100;
+                                    const elapsedTime = (Date.now() - startTime) / 1000; // زمان گذشته در ثانیه
+                                    const speedKB = (e.loaded / 1024) / elapsedTime; // سرعت آپلود به KB/s
+
+                                    let speed;
+                                    let unit;
+                                    if (speedKB >= 1024) {
+                                        speed = speedKB / 1024;
+                                        unit = 'MB/s';
                                     } else {
-                                        console.error('Error:', xhr.statusText);
-                                        reject();
+                                        speed = speedKB;
+                                        unit = 'KB/s';
                                     }
-                                });
 
-                                xhr.addEventListener('error', function () {
-                                    console.error('Error:', xhr.statusText);
-                                    reject();
-                                });
+                                    const roundedSpeed = Math.round(speed * 10) / 10; // گرد کردن سرعت به یک دهم
 
-                                // اضافه کردن رویداد progress برای فایل
-                                xhr.upload.addEventListener('progress', function (e) {
-                                    if (e.lengthComputable) {
-                                        const percentComplete = (e.loaded / e.total) * 100;
-                                        uploadedBytes += e.loaded;
-                                        const overallPercentComplete = (uploadedBytes / totalBytes) * 100;
-                                        const elapsedTime = (Date.now() - startTime) / 1000; // زمان گذشته در ثانیه
-                                        const speedKB = (uploadedBytes / 1024) / elapsedTime; // سرعت آپلود به KB/s
-
-                                        let speed;
-                                        let unit;
-                                        if (speedKB >= 1024) {
-                                            speed = speedKB / 1024;
-                                            unit = 'MB/s';
-                                        } else {
-                                            speed = speedKB;
-                                            unit = 'KB/s';
-                                        }
-
-                                        const roundedSpeed = Math.round(speed * 10) / 10; // گرد کردن سرعت به یک دهم
-
-                                        progressFill.style.width = overallPercentComplete + '%';
-                                        progressPercentage.textContent = Math.round(overallPercentComplete) + '%'; // استفاده از Math.round برای گرد کردن
-                                        uploadSpeed.textContent = roundedSpeed.toFixed(1) + ' ' + unit; // استفاده از toFixed(1) برای نمایش سرعت آپلود به صورت یک دهم
-                                    }
-                                });
-
-                                xhr.send(fileFormData);
+                                    progressFill.style.width = percentComplete + '%';
+                                    progressPercentage.textContent = Math.round(percentComplete) + '%'; // استفاده از Math.round برای گرد کردن
+                                    uploadSpeed.textContent = roundedSpeed.toFixed(1) + ' ' + unit; // استفاده از toFixed(1) برای نمایش سرعت آپلود به صورت یک دهم
+                                }
                             });
-
-                            uploadPromises.push(promise);
                         }
 
-                        // Wait for all files to be uploaded
-                        Promise.all(uploadPromises).then(() => {
-                            console.log('All files uploaded successfully.');
-                        }).catch(() => {
-                            console.error('One or more files failed to upload.');
-                            modal.style.display = 'none'; // بستن مودال در صورت خطا
-                        });
+                        xhr.send(formData);
                     }
                 }
 
@@ -4484,11 +4457,13 @@
                     return cookieValue;
                 }
 
+                // Close modal when clicking on <span> (x)
                 document.querySelector('.close').addEventListener('click', function () {
                     document.getElementById('uploadModal').style.display = 'none';
                     fetchMessages();
                 });
 
+                // Close alert when clicking on <span> (x)
                 document.querySelector('.closebtn').addEventListener('click', function () {
                     const alertBox = document.getElementById('success-alert');
                     alertBox.style.display = 'none';
@@ -4502,7 +4477,6 @@
                         alertBox.style.display = 'none';
                     }, 3000);
                 }
-
             </script>
 
 

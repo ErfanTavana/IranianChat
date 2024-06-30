@@ -113,6 +113,7 @@ def get_messages(request, chat_id):
 
     return JsonResponse(messages_list, safe=False)
 
+
 @csrf_exempt
 def send_message(request):
     if not request.user.is_authenticated:
@@ -120,7 +121,7 @@ def send_message(request):
     if request.method == "POST":
         chat_id = request.POST.get('chat_id')
         sender_id = request.POST.get('sender_id')
-        content = request.POST.get('content', '')  # به طور پیش‌فرض مقدار خالی
+        content = request.POST.get('content')
         file = request.FILES.get('file')
 
         try:
@@ -132,7 +133,7 @@ def send_message(request):
             message = Message(
                 chat=chat,
                 sender_id=sender_id,
-                content=content or '',  # اطمینان از مقدار خالی به جای None
+                content=content,
                 timestamp=timezone.now()
             )
             if file:
@@ -143,6 +144,7 @@ def send_message(request):
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid data'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
 
 def serve_chat_file(request, file_name):
     print("Request to serve file:", file_name)
