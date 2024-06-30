@@ -26,3 +26,4 @@ IranianChat/__pycache__/settings.cpython-312.pyc
 IranianChat/__pycache__/urls.cpython-312.pyc
 IranianChat/__pycache__/utilities.cpython-312.pyc
 IranianChat/__pycache__/wsgi.cpython-312.pyc
+*.pyc
