@@ -68,7 +68,7 @@ def chat_details(request, id):
         return HttpResponseForbidden("You do not have access to view this chat.")
 
     profiles = Profile.objects.all()  # or any other logic to get profiles
-    messages = Message.objects.filter(chat=chat_detail).order_by('-timestamp')
+    messages = Message.objects.filter(chat=chat_detail).order_by('timestamp')
 
     return render(request, 'messenger.html',
                   {'chat_detail': chat_detail, 'chats': chats, 'profiles': profiles, 'messages': messages})
@@ -91,7 +91,7 @@ def get_messages(request, chat_id):
                                                                                                  'sender__profile__profile_picture',
                                                                                                  'sender__profile__first_name',
                                                                                                  'sender__profile__last_name').order_by(
-        '-timestamp')
+        'timestamp')
     messages_list = list(messages)
 
     for message in messages_list:
