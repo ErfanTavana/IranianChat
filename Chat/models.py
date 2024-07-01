@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+
 from IranianChat.utilities import convert_to_shamsi
 
 
@@ -24,7 +25,8 @@ class Message(models.Model):
     seen = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        self.timestamp = timezone.now()
+        if not self.timestamp:
+            self.timestamp = timezone.now()
         if not self.solar_time_stamp:
             self.solar_time_stamp = convert_to_shamsi(self.timestamp.isoformat())
         self.chat.last_message_time = timezone.now()
