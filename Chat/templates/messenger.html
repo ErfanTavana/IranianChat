@@ -432,9 +432,15 @@
                                                                 <h6>
                                                                     {{ chat.last_message_time|date:"Y/m/d H:i" }}
                                                                 </h6>
-                                                                <h6 class="font-success status">
-                                                                    دیده شده
-                                                                </h6>
+                                                                {% if chat.unseen_messages %}
+                                                                    <h6 class="font-danger status">
+                                                                        خوانده نشده
+                                                                    </h6>
+                                                                {% else %}
+                                                                    <h6 class="font-success status">
+                                                                        خوانده شده
+                                                                    </h6>
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </li>
@@ -3221,7 +3227,7 @@
                         if (document.visibilityState === 'visible') {
                             sendSeenMessages(chatId);
                         }
-                    }, 2000);
+                    }, 1000);
                     let typingMessage = ''; // Or any appropriate initialization
 
                     function fetchMessages() {
@@ -3294,7 +3300,7 @@
                                 chatsContainer.empty();
                                 const chats = data.chats;
                                 chats.forEach(function (chat) {
-                                    const chatElement = $('<a>').attr('href', ``);
+                                    const chatElement = $('<a>').attr('href', chat.chat_url);
                                     const chatLi = $('<li>').addClass(chat.id == '{{ chat_detail.id }}' ? 'active' : '')
                                         .attr('data-to', chat.id == '{{ chat_detail.id }}' ? 'chating' : 'blank');
                                     const chatBox = $('<div>').addClass('chat-box');
@@ -3316,7 +3322,7 @@
                                     const dateStatusDiv = $('<div>').addClass('date-status');
                                     const iPin = $('<i>').addClass('ti-pin2');
                                     const h6Date = $('<h6>').text(chat.last_message_time);
-                                    const h6Status = $('<h6>').addClass('font-success status').text(chat.unseen_messages ? 'دیده نشده' : 'دیده شده');
+                                    const h6Status = $('<h6>').addClass(chat.unseen_messages ? 'font-danger' : 'font-success').text(chat.unseen_messages ? 'خوانده نشده' : 'خوانده شده');
                                     dateStatusDiv.append(iPin).append(h6Date).append(h6Status);
                                     chatBox.append(dateStatusDiv);
 
@@ -3336,7 +3342,6 @@
                             fetchMessages();
                         }
                     }, 5000);
-
                 </script>
 
             </div>

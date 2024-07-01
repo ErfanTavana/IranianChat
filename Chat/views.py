@@ -1,5 +1,6 @@
 from django.http import FileResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
@@ -53,9 +54,14 @@ def chat_details(request, id):
                 participant1=request.user,
                 participant2=profile.user
             )
+
     chat_detail = get_object_or_404(Chat, id=id)
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by(
         'last_message_time')
+
+    for chat in chats:
+        receiver = chat.participant1 if chat.participant1.id != request.user.id else chat.participant2
+        chat.unseen_messages = Message.objects.filter(chat=chat, seen=False, sender=receiver).exists()
 
     # Check if the user is a participant in the chat
     if request.user not in [chat_detail.participant1, chat_detail.participant2]:
@@ -110,13 +116,14 @@ def get_messages(request, chat_id):
             message['profile_picture_url'] = settings.STATIC_URL + 'assets/images/avatar/default.jpg'
 
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by(
-        '-last_message_time')
+        'last_message_time')
 
     chats_list = []
     for chat in chats:
-        unseen_messages = Message.objects.filter(chat=chat, seen=False).exists()
-        0
-        formatted_time = chat.last_message_time.strftime("%Y/%m/%d %H:%M")
+        receiver = chat.participant1 if chat.participant1.id != request.user.id else chat.participant2
+        unseen_messages = Message.objects.filter(chat=chat, seen=False, sender_id=receiver.id).exists()
+
+        chat_url = reverse('chat_details_name', args=[chat.id])
         chats_list.append({
             'id': chat.id,
             'participant1': chat.participant1.username,
@@ -128,8 +135,9 @@ def get_messages(request, chat_id):
             'participant2_first_name': chat.participant2.profile.first_name,
             'participant2_last_name': chat.participant2.profile.last_name,
             'last_message_content': chat.messages.last().content if chat.messages.exists() else '',
-            'last_message_time': formatted_time,
-            'unseen_messages': unseen_messages
+            'last_message_time': chat.last_message_time,
+            'unseen_messages': unseen_messages,
+            'chat_url': chat_url  # اضافه کردن آدرس چت به داده‌ها
         })
 
     response_data = {
