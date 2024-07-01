@@ -172,7 +172,7 @@ def serve_chat_file(request, file_name):
 
 @csrf_exempt
 def seen_messages(request):
-    print("seen message", '++++++++++++++++++++++++++++++')
+    print("seen message", request.user.username)
     if not request.user.is_authenticated:
         return JsonResponse({'status': 'error', 'message': 'شما به این چت دسترسی ندارید'})
 
