@@ -220,20 +220,16 @@
                                         <ul class="chat-main">
                                             {% for chat in chats %}
                                                 <a href="{% url 'chat_details_name' chat.id %}">
-                                                    <li href="{% url 'chat_details_name'  chat.id %}" data-to="blank">
+                                                    <li href="{% url 'chat_details_name' chat.id %}" data-to="blank">
                                                         <div class="chat-box">
                                                             <div class="profile offline">
                                                                 <img alt="Avatar" class="bg-img" src="
-
-
-
-
-
-
-
-
-                                                                        {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
-
+                        {% if chat.participant1 == request.user %}
+                            {{ chat.participant2.profile.profile_picture.url }}
+                        {% else %}
+                            {{ chat.participant1.profile.profile_picture.url }}
+                        {% endif %}
+                    "/>
                                                             </div>
                                                             <div class="details">
                                                                 <h5>
@@ -245,24 +241,22 @@
                                                                         {{ chat.participant1.last_name }}
                                                                     {% endif %}
                                                                 </h5>
-                                                                <h6>
-                                                                    {{ chat.messages.last.content }}
-                                                                </h6>
+                                                                <h6>{{ chat.messages.last.content }}</h6>
                                                             </div>
                                                             <div class="date-status">
-                                                                <i class="ti-pin2">
-                                                                </i>
-                                                                <h6>
-                                                                    {{ chat.last_message_time|date:"Y/m/d H:i" }}
-                                                                </h6>
-                                                                <h6 class="font-success status">
-                                                                    دیده شده
-                                                                </h6>
+                                                                <i class="ti-pin2"></i>
+                                                                <h6>{{ chat.last_message_time|date:"Y/m/d H:i" }}</h6>
+                                                                {% if chat.unseen_messages %}
+                                                                    <h6 class="font-danger status">خوانده نشده</h6>
+                                                                {% else %}
+                                                                    <h6 class="font-success status">دیده شده</h6>
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </li>
                                                 </a>
                                             {% endfor %}
+
 
                                         </ul>
                                     </div>

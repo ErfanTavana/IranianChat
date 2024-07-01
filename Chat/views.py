@@ -6,38 +6,37 @@ from django.http import FileResponse
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from Account.models import Profile
-from Chat.models import Message  # Assuming Message model is in Chat.models
-from .models import Chat
+from .models import Message, Chat
 
 
 def index(request):
     if not request.user.is_authenticated:
         return redirect('login_name')
 
-    profiles = Profile.objects.exclude(user=request.user)  # حذف پروفایل فعلی کاربر از لیست
+    profiles = Profile.objects.exclude(user=request.user)
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by(
-        'last_message_time')
+        '-last_message_time')
+
+    for chat in chats:
+        chat.unseen_messages = Message.objects.filter(chat=chat, seen=False).exists()
 
     for profile in profiles:
-        # بررسی وجود چت بین کاربر فعلی و پروفایل‌های دیگر
         existing_chat = Chat.objects.filter(
             Q(participant1=request.user, participant2=profile.user) |
             Q(participant1=profile.user, participant2=request.user)
         ).first()
 
         if not existing_chat:
-            # اگر چت بین این دو کاربر وجود ندارد، آن را ایجاد کنید
             chat_create, created = Chat.objects.get_or_create(
                 participant1=request.user,
                 participant2=profile.user
             )
-    # بازگرداندن پروفایل‌ها و چت‌های موجود به قالب
+
     return render(request, 'chat_blank.html', {'profiles': profiles, 'chats': chats})
 
 
@@ -93,7 +92,9 @@ def get_messages(request, chat_id):
                                                                                                  'sender__profile__profile_picture',
                                                                                                  'sender__profile__first_name',
                                                                                                  'sender__profile__last_name',
-                                                                                                 'seen','chat_id').order_by('timestamp')
+                                                                                                 'seen',
+                                                                                                 'chat_id').order_by(
+        'timestamp')
     messages_list = list(messages)
     for message in messages_list:
         message['timestamp'] = message['solar_time_stamp']
@@ -171,11 +172,10 @@ def serve_chat_file(request, file_name):
 
 
 @csrf_exempt
-def seen_messages(request): #
-    print("seen message", request.user.username,f'{{}}')
+def seen_messages(request):
+    print("seen message", request.user.username, f'{{}}')
     if not request.user.is_authenticated:
         return JsonResponse({'status': 'error', 'message': 'شما به این چت دسترسی ندارید'})
-
     if request.method == "POST":
         chat_id = request.POST.get('chat_id')
         chat = get_object_or_404(Chat, id=chat_id)
