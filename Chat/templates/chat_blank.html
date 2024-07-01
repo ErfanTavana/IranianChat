@@ -443,7 +443,7 @@
                                         <script>
                                             function fetchMessages() {
                                                 $.ajax({
-                                                    url: '{% url "get_messages" 2 %}',  // استفاده از id چت در URL
+                                                    url: '{% url "get_messages_optional"  %}',  // استفاده از id چت در URL
                                                     method: 'GET',
                                                     success: function (data) {
 
