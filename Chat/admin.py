@@ -1,15 +1,21 @@
 from django.contrib import admin
 from .models import Chat, Message
+from django.contrib.auth.models import User
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'chat', 'sender', 'timestamp', 'content', 'seen')
+    list_display = ('id', 'get_chat_participants', 'sender', 'timestamp', 'content', 'seen')
     list_filter = ('chat', 'sender', 'seen')
     search_fields = ('content', 'sender__username')
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.select_related('chat', 'sender')
+
+    def get_chat_participants(self, obj):
+        return f"{obj.chat.participant1.get_full_name()} - {obj.chat.participant2.get_full_name()}"
+
+    get_chat_participants.short_description = 'Chat Participants'
 
     def solar_time_stamp_display(self, obj):
         return obj.solar_time_stamp
