@@ -401,6 +401,8 @@
 
 
 
+
+
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -3210,7 +3212,9 @@
                     // فراخوانی تابع هر 5 ثانیه با استفاده از chatId
                     const chatId = '{{ chat_detail.id }}';
                     setInterval(function () {
-                        sendSeenMessages(chatId);
+                        if (document.visibilityState === 'visible') {
+                            sendSeenMessages(chatId);
+                        }
                     }, 5000);
 
                     function fetchMessages() {
@@ -3283,8 +3287,11 @@
                         });
                     }
 
-                    // Fetch messages every 5 seconds
-                    setInterval(fetchMessages, 5000);
+                    setInterval(function () {
+                        if (document.visibilityState === 'visible') {
+                            fetchMessages();
+                        }
+                    }, 5000);
                 </script>
 
             </div>
