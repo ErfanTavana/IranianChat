@@ -3221,14 +3221,6 @@
                         }
                     }
 
-                    // فراخوانی تابع هر 5 ثانیه با استفاده از chatId
-                    const chatId = '{{ chat_detail.id }}';
-                    setInterval(function () {
-                        if (document.visibilityState === 'visible') {
-                            sendSeenMessages(chatId);
-                        }
-                    }, 1000);
-                    let typingMessage = ''; // Or any appropriate initialization
 
                     function fetchMessages() {
                         $.ajax({
@@ -3341,7 +3333,17 @@
                         if (document.visibilityState === 'visible') {
                             fetchMessages();
                         }
-                    }, 5000);
+                    }, 1500);
+                                        const chatId = '{{ chat_detail.id }}';
+
+                    let typingMessage = ''; // Or any appropriate initialization
+                    // فراخوانی تابع هر 500 میلی‌ثانیه با استفاده از chatId
+                    setInterval(function () {
+                        if (document.visibilityState === 'visible') {
+                            sendSeenMessages(chatId);
+                        }
+                    }, 1500);
+
                 </script>
 
             </div>

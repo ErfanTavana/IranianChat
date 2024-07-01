@@ -75,23 +75,23 @@ WSGI_APPLICATION = 'IranianChat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-# PostgreSQL
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'IranianChat',  # Replace with your actual database name
-#         'USER': 'erfan_amir_moein',  # Replace with your actual database user
-#         'PASSWORD': '09280076340924494212',  # Replace with your actual database password
-#         'HOST': 'localhost',  # Replace with your actual database host if it's not on your local machine
-#         'PORT': '5432',  # Replace with your actual database port if it's not the default port
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+# PostgreSQL
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'IranianChat',  # Replace with your actual database name
+        'USER': 'erfan_amir_moein',  # Replace with your actual database user
+        'PASSWORD': '09280076340924494212',  # Replace with your actual database password
+        'HOST': 'localhost',  # Replace with your actual database host if it's not on your local machine
+        'PORT': '5432',  # Replace with your actual database port if it's not the default port
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

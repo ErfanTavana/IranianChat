@@ -56,7 +56,7 @@ def chat_details(request, id):
 
     chat_detail = get_object_or_404(Chat, id=id)
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by(
-        'last_message_time')
+        '-last_message_time')
 
     for chat in chats:
         receiver = chat.participant1 if chat.participant1.id != request.user.id else chat.participant2
@@ -85,7 +85,7 @@ def get_messages(request, chat_id=None):
     if not request.user.is_authenticated:
         return redirect('login_name')
 
-    if chat_id != None:
+    if chat_id is not None:
         chat_detail = get_object_or_404(Chat, id=chat_id)
 
         # Check if the user is a participant in the chat
@@ -119,7 +119,7 @@ def get_messages(request, chat_id=None):
         messages_list = []
 
     chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by(
-        'last_message_time')
+        '-last_message_time')
 
     chats_list = []
     for chat in chats:
@@ -138,7 +138,7 @@ def get_messages(request, chat_id=None):
             'participant2_first_name': chat.participant2.profile.first_name,
             'participant2_last_name': chat.participant2.profile.last_name,
             'last_message_content': chat.messages.last().content if chat.messages.exists() else '',
-            'last_message_time': chat.last_message_time,
+            'last_message_time': chat.last_message_time_formatted,
             'unseen_messages': unseen_messages,
             'chat_url': chat_url  # اضافه کردن آدرس چت به داده‌ها
         })

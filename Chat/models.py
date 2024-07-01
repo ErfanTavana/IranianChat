@@ -11,6 +11,12 @@ class Chat(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_message_time = models.DateTimeField(null=True, blank=True)
 
+    @property
+    def last_message_time_formatted(self):
+        if self.last_message_time:
+            return self.last_message_time.strftime("%Y-%m-%d %H:%M")
+        return None
+
     def __str__(self):
         return f"{self.participant1.get_full_name()} - {self.participant2.get_full_name()}"
 
@@ -29,8 +35,9 @@ class Message(models.Model):
             self.timestamp = timezone.now()
         if not self.solar_time_stamp:
             self.solar_time_stamp = convert_to_shamsi(self.timestamp.isoformat())
-        self.chat.last_message_time = timezone.now()
-        self.chat.save()
+        if not self.pk:  # Check if the instance is being created
+            self.chat.last_message_time = timezone.now()
+            self.chat.save()
         super().save(*args, **kwargs)
 
     def __str__(self):
