@@ -105,6 +105,7 @@ def get_messages(request, chat_id):
             if message_instance.file:
                 message['file_url'] = message_instance.file.url
                 message['file_name'] = os.path.basename(message_instance.file.name)
+                print(message['file_name'])
                 message['file_size'] = message_instance.file.size
 
         if message['sender__profile__profile_picture']:
