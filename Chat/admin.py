@@ -1,47 +1,19 @@
 from django.contrib import admin
-from django import forms
-from .models import Message
-
-from .models import Chat
-
-
-@admin.register(Chat)
-class ChatAdmin(admin.ModelAdmin):
-    list_display = ('participant1', 'participant2', 'created_at')
-    list_filter = ('participant1', 'participant2', 'created_at')
-    search_fields = ('participant1__username', 'participant2__username')
-    date_hierarchy = 'created_at'
-
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        queryset = queryset.select_related('participant1', 'participant2')
-        return queryset
-
-
-
-class MessageAdminForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = '__all__'
-
-    class Media:
-        js = ('js/upload_progress.js',)
-
-
-# admin.py
-from django.contrib import admin
-from .models import Message
-
+from .models import Chat, Message
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    form = MessageAdminForm
-    list_display = ('sender', 'chat', 'timestamp', 'seen')
-    list_filter = ('sender', 'chat', 'seen', 'timestamp')
-    search_fields = ('sender__username', 'content')
-    date_hierarchy = 'timestamp'
+    list_display = ('id', 'chat', 'sender', 'timestamp', 'content', 'seen')
+    list_filter = ('chat', 'sender', 'seen')
+    search_fields = ('content', 'sender__username')
 
     def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        queryset = queryset.select_related('sender', 'chat')
-        return queryset
+        qs = super().get_queryset(request)
+        return qs.select_related('chat', 'sender')
+
+    def solar_time_stamp_display(self, obj):
+        return obj.solar_time_stamp
+
+    solar_time_stamp_display.short_description = 'Solar Time Stamp'
+
+admin.site.register(Chat)
