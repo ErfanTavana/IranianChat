@@ -3226,12 +3226,6 @@
                             success: function (data) {
                                 const messagesContainer = $('#messages-container');
                                 messagesContainer.empty();
-
-                                // Sort messages by timestamp in descending order
-                                data.sort(function (a, b) {
-                                    return new Date(a.timestamp) - new Date(b.timestamp);
-                                });
-
                                 data.forEach(function (message) {
                                     const messageElement = $('<li>').addClass(message.sender__username === '{{ request.user.username }}' ? 'sent' : 'replies')
                                         .attr('data-message-id', message.id)
