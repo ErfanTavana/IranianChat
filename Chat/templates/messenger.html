@@ -403,6 +403,7 @@
 
 
 
+
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -3222,6 +3223,11 @@
                             url: '{% url "get_messages" chat_detail.id %}',
                             method: 'GET',
                             success: function (data) {
+                                // Sort messages by timestamp in descending order
+                                data.sort(function (a, b) {
+                                    return new Date(a.timestamp) - new Date(b.timestamp);
+                                });
+
                                 const messagesContainer = $('#messages-container');
                                 messagesContainer.empty();
 
@@ -3292,6 +3298,7 @@
                             fetchMessages();
                         }
                     }, 5000);
+
                 </script>
 
             </div>
