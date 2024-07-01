@@ -3222,24 +3222,25 @@
                             sendSeenMessages(chatId);
                         }
                     }, 2000);
+                    let typingMessage = ''; // Or any appropriate initialization
 
                     function fetchMessages() {
                         $.ajax({
                             url: '{% url "get_messages" chat_detail.id %}',
                             method: 'GET',
                             success: function (data) {
-                                console.log(data);  // بررسی داده‌های دریافتی
+                                // Update messages
                                 const messagesContainer = $('#messages-container');
                                 messagesContainer.empty();
-
-                                data.forEach(function (message) {
+                                const messages = data.messages;
+                                messages.forEach(function (message) {
                                     const messageElement = $('<li>').addClass(message.sender__username === '{{ request.user.username }}' ? 'sent' : 'replies')
                                         .attr('data-message-id', message.id)
                                         .attr('data-seen', message.seen ? 'true' : 'false');
                                     const mediaDiv = $('<div>').addClass('media');
                                     const profileDiv = $('<div>').addClass('profile mr-4');
                                     const profileImg = $('<img>').addClass('bg-img').attr('alt', 'Avatar')
-                                        .attr('src', message.profile_picture_url || '{% static "assets/images/avtar/5.jpg" %}');
+                                        .attr('src', message.profile_picture_url || '{% static "assets/images/avatar/default.jpg" %}');
                                     profileDiv.append(profileImg);
                                     mediaDiv.append(profileDiv);
 
@@ -3287,6 +3288,42 @@
 
                                 // Activate feather icons after adding new elements
                                 feather.replace();
+
+                                // Update chats
+                                const chatsContainer = $('.chat-main');
+                                chatsContainer.empty();
+                                const chats = data.chats;
+                                chats.forEach(function (chat) {
+                                    const chatElement = $('<a>').attr('href', ``);
+                                    const chatLi = $('<li>').addClass(chat.id == '{{ chat_detail.id }}' ? 'active' : '')
+                                        .attr('data-to', chat.id == '{{ chat_detail.id }}' ? 'chating' : 'blank');
+                                    const chatBox = $('<div>').addClass('chat-box');
+                                    const profileDiv = $('<div>').addClass('profile offline');
+                                    const profileImg = $('<img>').addClass('bg-img').attr('alt', 'Avatar').attr('src',
+                                        chat.participant1 == '{{ request.user.username }}' ?
+                                            `${chat.participant2_profile_picture_url}` : `${chat.participant1_profile_picture_url}`);
+                                    profileDiv.append(profileImg);
+                                    chatBox.append(profileDiv);
+
+                                    const detailsDiv = $('<div>').addClass('details');
+                                    const h5Name = $('<h5>').text(chat.participant1 == '{{ request.user.username }}' ?
+                                        `${chat.participant2_first_name} ${chat.participant2_last_name}` :
+                                        `${chat.participant1_first_name} ${chat.participant1_last_name}`);
+                                    const h6Content = $('<h6>').text(chat.last_message_content);
+                                    detailsDiv.append(h5Name).append(h6Content);
+                                    chatBox.append(detailsDiv);
+
+                                    const dateStatusDiv = $('<div>').addClass('date-status');
+                                    const iPin = $('<i>').addClass('ti-pin2');
+                                    const h6Date = $('<h6>').text(chat.last_message_time);
+                                    const h6Status = $('<h6>').addClass('font-success status').text(chat.unseen_messages ? 'دیده نشده' : 'دیده شده');
+                                    dateStatusDiv.append(iPin).append(h6Date).append(h6Status);
+                                    chatBox.append(dateStatusDiv);
+
+                                    chatLi.append(chatBox);
+                                    chatElement.append(chatLi);
+                                    chatsContainer.append(chatElement);
+                                });
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error fetching messages:', error);
