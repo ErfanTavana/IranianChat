@@ -172,7 +172,7 @@ def serve_chat_file(request, file_name):
 
 @csrf_exempt
 def seen_messages(request):
-    print("seen message", request.user.username)
+    print("seen message", request.user.username,f'{{}}')
     if not request.user.is_authenticated:
         return JsonResponse({'status': 'error', 'message': 'شما به این چت دسترسی ندارید'})
 
@@ -184,8 +184,9 @@ def seen_messages(request):
             return JsonResponse({'status': 'error', 'message': 'شما به این چت دسترسی ندارید'})
 
         message_ids = request.POST.get('message_ids')
-        message_ids_list = message_ids.split(',')
+        print("seen message", request.user.username, f'{message_ids}')
 
+        message_ids_list = message_ids.split(',')
         receiver = chat.participant1 if chat.participant1.id != request.user.id else chat.participant2
 
         messages = Message.objects.filter(id__in=message_ids_list, chat=chat, sender=receiver)
