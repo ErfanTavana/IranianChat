@@ -1,11 +1,14 @@
 from datetime import datetime
-
 from jdatetime import datetime as jdatetime
+import pytz
 
 
 def convert_to_shamsi(miladi_date_str):
-    # تبدیل رشته تاریخ میلادی به شی datetime
-    miladi_date = datetime.fromisoformat(miladi_date_str)
+    # تنظیم منطقه زمانی به ایران
+    iran_tz = pytz.timezone('Asia/Tehran')
+
+    # تبدیل رشته تاریخ میلادی به شی datetime با منطقه زمانی ایران
+    miladi_date = datetime.fromisoformat(miladi_date_str).astimezone(iran_tz)
 
     # تبدیل تاریخ میلادی به تاریخ شمسی
     shamsi_date = jdatetime.fromgregorian(datetime=miladi_date)
