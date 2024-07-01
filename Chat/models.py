@@ -8,6 +8,7 @@ class Chat(models.Model):
     participant1 = models.ForeignKey(User, related_name='chats_as_participant1', on_delete=models.CASCADE)
     participant2 = models.ForeignKey(User, related_name='chats_as_participant2', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    last_message_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"Chat between {self.participant1.username} and {self.participant2.username}"
