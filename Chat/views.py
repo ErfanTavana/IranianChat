@@ -92,7 +92,8 @@ def get_messages(request, chat_id):
                                                                                                  'file',
                                                                                                  'sender__profile__profile_picture',
                                                                                                  'sender__profile__first_name',
-                                                                                                 'sender__profile__last_name').order_by(
+                                                                                                 'sender__profile__last_name',
+                                                                                                 'seen','chat_id').order_by(
         'timestamp')
     messages_list = list(messages)
 
@@ -169,3 +170,31 @@ def serve_chat_file(request, file_name):
 
     # بازگرداندن فایل به عنوان پاسخ
     return FileResponse(open(file_path, 'rb'))
+
+
+@csrf_exempt
+def seen_messages(request):
+    print("seen message", '++++++++++++++++++++++++++++++')
+    if not request.user.is_authenticated:
+        return JsonResponse({'status': 'error', 'message': 'شما به این چت دسترسی ندارید'})
+
+    if request.method == "POST":
+        chat_id = request.POST.get('chat_id')
+        chat = get_object_or_404(Chat, id=chat_id)
+
+        if chat.participant1.id != request.user.id and chat.participant2.id != request.user.id:
+            return JsonResponse({'status': 'error', 'message': 'شما به این چت دسترسی ندارید'})
+
+        message_ids = request.POST.get('message_ids')
+        message_ids_list = message_ids.split(',')
+
+        receiver = chat.participant1 if chat.participant1.id != request.user.id else chat.participant2
+
+        messages = Message.objects.filter(id__in=message_ids_list, chat=chat, sender=receiver)
+
+        for message in messages:
+            message.seen = True
+            message.save()
+
+        return JsonResponse({'status': 'success', 'message': 'بازدید از پیام‌ها ثبت شد'})
+    return JsonResponse({'status': 'error', 'message': 'درخواست نامعتبر است'}, status=400)
