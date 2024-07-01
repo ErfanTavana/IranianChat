@@ -409,7 +409,6 @@
 
 
 
-
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -3135,19 +3134,16 @@
                                             <h5>{{ message.sender.first_name }} {{ message.sender.last_name }}</h5>
                                             <h6>{{ message.timestamp|date:"H:i A" }}</h6>
                                             <ul class="msg-box">
-
                                                 {% if message.file %}
                                                     <li class="msg-setting-main file-message {% if message.sender == request.user %}message-sent{% else %}message-received{% endif %}">
                                                         <div class="document">
                                                             <i class="fa fa-file font-primary"></i>
                                                             <div class="details">
-                                                                {% with message.file.name|basename as file_name %}
-                                                                    {% if file_name|length > 15 %}
-                                                                        {{ file_name|slice:":15" }}...
-                                                                    {% else %}
-                                                                        {{ file_name }}
-                                                                    {% endif %}
-                                                                {% endwith %}
+                                                                {% if message.file.name|length > 15 %}
+                                                                    {{ message.file.name|slice:":15" }}...
+                                                                {% else %}
+                                                                    {{ message.file.name }}
+                                                                {% endif %}
                                                                 <h6>{{ message.file.size|filesizeformat }}</h6>
                                                             </div>
                                                             <div class="icon-btns">
