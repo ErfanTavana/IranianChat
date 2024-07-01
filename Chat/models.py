@@ -11,7 +11,7 @@ class Chat(models.Model):
     last_message_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"Chat between {self.participant1.username} and {self.participant2.username}"
+        return f"{self.participant1.get_full_name()} - {self.participant2.get_full_name()}"
 
 
 class Message(models.Model):
