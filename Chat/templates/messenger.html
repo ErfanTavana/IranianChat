@@ -3256,7 +3256,10 @@
                                         const documentDiv = $('<div>').addClass('document');
                                         const fileIcon = $('<i>').addClass('fa fa-file font-primary');
                                         const detailsDiv = $('<div>').addClass('details');
-                                        const fileName = $('<h6>').text(message.file_name);
+                                        const fileName = $('<h6>').text(message.file_name.length > 15 ? message.file_name.slice(0, 15) + '...' : message.file_name);
+                                        const fileSize = $('<h6>').text(message.file_size);
+                                        detailsDiv.append(fileName).append(fileSize);
+
                                         const iconBtnsDiv = $('<div>').addClass('icon-btns');
                                         const downloadLink = $('<a>').addClass('icon-btn btn-outline-light').attr('href', message.file_url).attr('target', '_blank');
                                         const downloadIcon = $('<i>').attr('data-feather', 'download');
