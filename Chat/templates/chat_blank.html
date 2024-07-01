@@ -231,6 +231,7 @@
 
 
 
+
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -252,7 +253,7 @@
                                                                 <i class="ti-pin2">
                                                                 </i>
                                                                 <h6>
-                                                                    {{ chat.created_at|date:"Y/m/d" }}
+                                                                    {{ chat.last_message_time|date:"Y/m/d H:i" }}
                                                                 </h6>
                                                                 <h6 class="font-success status">
                                                                     دیده شده
