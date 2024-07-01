@@ -32,6 +32,8 @@ class Message(models.Model):
         self.timestamp = timezone.now()
         if not self.solar_time_stamp:
             self.solar_time_stamp = convert_to_shamsi(self.timestamp.isoformat())
+        self.chat.last_message_time = timezone.now()
+        self.chat.save()
         super().save(*args, **kwargs)
 
     def __str__(self):

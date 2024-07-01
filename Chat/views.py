@@ -21,7 +21,8 @@ def index(request):
         return redirect('login_name')
 
     profiles = Profile.objects.exclude(user=request.user)  # حذف پروفایل فعلی کاربر از لیست
-    chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user))
+    chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by(
+        'last_message_time')
 
     for profile in profiles:
         # بررسی وجود چت بین کاربر فعلی و پروفایل‌های دیگر
@@ -61,7 +62,8 @@ def chat_details(request, id):
                 participant2=profile.user
             )
     chat_detail = get_object_or_404(Chat, id=id)
-    chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by('-last_message_time')
+    chats = Chat.objects.filter(Q(participant1=request.user) | Q(participant2=request.user)).order_by(
+        'last_message_time')
 
     # Check if the user is a participant in the chat
     if request.user not in [chat_detail.participant1, chat_detail.participant2]:
