@@ -409,6 +409,7 @@
 
 
 
+
                                                                         {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
 
                                                             </div>
@@ -3139,12 +3140,7 @@
                                                         <div class="document">
                                                             <i class="fa fa-file font-primary"></i>
                                                             <div class="details">
-                                                                {% if message.file.name|length > 15 %}
-                                                                    {{ message.file.name|slice:":15" }}...
-                                                                {% else %}
-                                                                    {{ message.file.name }}
-                                                                {% endif %}
-                                                                <h6>{{ message.file.size|filesizeformat }}</h6>
+                                                                {{ message.file.name }}
                                                             </div>
                                                             <div class="icon-btns">
                                                                 <a class="icon-btn btn-outline-light"
@@ -3256,8 +3252,7 @@
                                         const documentDiv = $('<div>').addClass('document');
                                         const fileIcon = $('<i>').addClass('fa fa-file font-primary');
                                         const detailsDiv = $('<div>').addClass('details');
-                                        const fileName = $('<h6>').text(message.file_name.length > 15 ? message.file_name.slice(0, 15) + '...' : message.file_name);
-                                        const fileSize = $('<h6>').text(message.file_size);
+                                        const fileName = $('<h6>').text(message.file_name.length > 15 ? message.file_name.slice(0, 15));
                                         detailsDiv.append(fileName).append(fileSize);
 
                                         const iconBtnsDiv = $('<div>').addClass('icon-btns');
