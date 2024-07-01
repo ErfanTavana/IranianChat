@@ -39,6 +39,40 @@
     <!-- Persian date-time picker -->
     <link href="{% static 'assets/css/jquery.md.bootstrap.datetimepicker.style.css' %}" rel="stylesheet"/>
     <style>
+        <
+        style >
+        .profile {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* اگر متن در جهت راست است */
+        .rtl .profile {
+            right: 0;
+            left: unset;
+        }
+
+        .rtl .mr-4 {
+            margin-right: 0 !important;
+            margin-left: 1.5rem !important;
+        }
+
+        .rtl-text {
+            direction: ltr;
+            text-align: left; /* متن را راست‌چین می‌کند */
+            unicode-bidi: embed; /* برای حفظ ترتیب نمایش صحیح متن */
+        }
+
+
         .replies .media .media-body .contact-name,
         .replies .media .media-body .contact-name h5,
         .replies .media .media-body .contact-name h6 {
@@ -102,6 +136,86 @@
             align-content: center;
             justify-content: center;
             align-items: center;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%; /* کوچکتر کردن سایز مودال */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Progress Bar Styles */
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 20px;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background-color: #87CEEB; /* آبی آسمانی */
+            transition: width 0.2s;
+        }
+
+        /* Alert Styles */
+        .alert {
+            display: none;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1001;
+            border-radius: 5px;
+        }
+
+        .alert .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .alert .closebtn:hover {
+            color: black;
         }
     </style>
 </head>
@@ -220,16 +334,76 @@
                                         <ul class="chat-main">
                                             {% for chat in chats %}
                                                 <a href="{% url 'chat_details_name' chat.id %}">
-                                                    <li href="{% url 'chat_details_name' chat.id %}" data-to="blank">
+                                                    <li class="{% if chat.id == chat_detail.id %}active{% endif %}"
+                                                        data-to="{% if chat.id == chat_detail.id %}chating{% else %}blank{% endif %}">
+
                                                         <div class="chat-box">
                                                             <div class="profile offline">
                                                                 <img alt="Avatar" class="bg-img" src="
-                        {% if chat.participant1 == request.user %}
-                            {{ chat.participant2.profile.profile_picture.url }}
-                        {% else %}
-                            {{ chat.participant1.profile.profile_picture.url }}
-                        {% endif %}
-                    "/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        {% if chat.participant1 ==  request.user %}{{ chat.participant2.profile.profile_picture.url }}{% else %}{{ chat.participant1.profile.profile_picture.url }}{% endif %}"/>
+
                                                             </div>
                                                             <div class="details">
                                                                 <h5>
@@ -241,25 +415,91 @@
                                                                         {{ chat.participant1.last_name }}
                                                                     {% endif %}
                                                                 </h5>
-                                                                <h6>{{ chat.messages.last.content }}</h6>
+                                                                <h6>
+                                                                    {{ chat.messages.last.content }}
+                                                                </h6>
                                                             </div>
                                                             <div class="date-status">
-                                                                <i class="ti-pin2"></i>
-                                                                <h6>{{ chat.last_message_time|date:"Y/m/d H:i" }}</h6>
+                                                                <i class="ti-pin2">
+                                                                </i>
+                                                                <h6>
+                                                                    {{ chat.last_message_time|date:"Y/m/d H:i" }}
+                                                                </h6>
                                                                 {% if chat.unseen_messages %}
-                                                                    <h6 class="font-danger status">خوانده نشده</h6>
+                                                                    <h6 class="font-danger status">
+                                                                        خوانده نشده
+                                                                    </h6>
                                                                 {% else %}
-                                                                    <h6 class="font-success status">دیده شده</h6>
+                                                                    <h6 class="font-success status">
+                                                                        خوانده شده
+                                                                    </h6>
                                                                 {% endif %}
                                                             </div>
                                                         </div>
                                                     </li>
                                                 </a>
                                             {% endfor %}
-
-
                                         </ul>
+                                        <script>
+                                            function fetchMessages() {
+                                                $.ajax({
+                                                    url: '{% url "get_messages" 2 %}',  // استفاده از id چت در URL
+                                                    method: 'GET',
+                                                    success: function (data) {
+
+                                                        // Activate feather icons after adding new elements
+                                                        feather.replace();
+
+                                                        // Update chats
+                                                        const chatsContainer = $('.chat-main');
+                                                        chatsContainer.empty();
+                                                        const chats = data.chats;
+                                                        chats.forEach(function (chat) {
+                                                            const chatElement = $('<a>').attr('href', chat.chat_url);
+                                                            const chatLi = $('<li>').addClass(chat.id == '{{ chat_detail.id }}' ? 'active' : '')
+                                                                .attr('data-to', chat.id == '{{ chat_detail.id }}' ? 'chating' : 'blank');
+                                                            const chatBox = $('<div>').addClass('chat-box');
+                                                            const profileDiv = $('<div>').addClass('profile offline');
+                                                            const profileImg = $('<img>').addClass('bg-img').attr('alt', 'Avatar').attr('src',
+                                                                chat.participant1 == '{{ request.user.username }}' ?
+                                                                    `${chat.participant2_profile_picture_url}` : `${chat.participant1_profile_picture_url}`);
+                                                            profileDiv.append(profileImg);
+                                                            chatBox.append(profileDiv);
+
+                                                            const detailsDiv = $('<div>').addClass('details');
+                                                            const h5Name = $('<h5>').text(chat.participant1 == '{{ request.user.username }}' ?
+                                                                `${chat.participant2_first_name} ${chat.participant2_last_name}` :
+                                                                `${chat.participant1_first_name} ${chat.participant1_last_name}`);
+                                                            const h6Content = $('<h6>').text(chat.last_message_content);
+                                                            detailsDiv.append(h5Name).append(h6Content);
+                                                            chatBox.append(detailsDiv);
+
+                                                            const dateStatusDiv = $('<div>').addClass('date-status');
+                                                            const iPin = $('<i>').addClass('ti-pin2');
+                                                            const h6Date = $('<h6>').text(chat.last_message_time);
+                                                            const h6Status = $('<h6>').addClass(chat.unseen_messages ? 'font-danger' : 'font-success').text(chat.unseen_messages ? 'خوانده نشده' : 'خوانده شده');
+                                                            dateStatusDiv.append(iPin).append(h6Date).append(h6Status);
+                                                            chatBox.append(dateStatusDiv);
+
+                                                            chatLi.append(chatBox);
+                                                            chatElement.append(chatLi);
+                                                            chatsContainer.append(chatElement);
+                                                        });
+                                                    },
+                                                    error: function (xhr, status, error) {
+                                                        console.error('Error fetching messages:', error);
+                                                    }
+                                                });
+                                            }
+
+                                            setInterval(function () {
+                                                if (document.visibilityState === 'visible') {
+                                                    fetchMessages();
+                                                }
+                                            }, 5000);
+                                        </script>
                                     </div>
+
                                     <div aria-labelledby="group-tab" class="tab-pane fade" id="group" role="tabpanel">
                                         <div class="search2">
                                             <div>
