@@ -3,15 +3,14 @@ import os
 from django.conf import settings
 from django.db.models import Q
 from django.http import FileResponse
-from django.http import HttpResponseForbidden
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from Account.models import Profile
-from .models import Message, Chat
+from .models import Chat, Message
 
 
 def index(request):
@@ -105,7 +104,7 @@ def get_messages(request, chat_id):
             message_instance = Message.objects.get(id=message['id'])
             if message_instance.file:
                 message['file_url'] = message_instance.file.url
-                message['file_name'] = message_instance.file.name
+                message['file_name'] = os.path.basename(message_instance.file.name)
                 message['file_size'] = message_instance.file.size
 
         if message['sender__profile__profile_picture']:
